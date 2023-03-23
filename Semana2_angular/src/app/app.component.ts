@@ -7,7 +7,17 @@ import { Component } from '@angular/core';
 })
 
 export class AppComponent {
-  title = 'Semana2-angular';
+  person: Colaborator = {
+    id: 7,
+    name: 'Nathan',
+    wage: 4500,
+    ocupation: 'Dev PI'
+  }
+}
 
-  
+interface Colaborator {
+  id: number;
+  name: string;
+  wage: number;
+  ocupation: string;
 }

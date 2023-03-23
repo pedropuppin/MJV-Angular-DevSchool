@@ -1,4 +1,12 @@
 <app-header></app-header> <!-- header component html tag generated in header.component.ts -->
-<h1>{{title}}</h1>
+<app-main></app-main>
+<div class="person-interpolation">
+  <h3>Nome: {{person.name}}</h3>
+  <ul>
+    <li>Id: {{person.id}}</li>
+    <li>Salário: {{person.wage}}</li>
+    <li>Cargo: {{person.ocupation}}</li>
+  </ul>
+</div>
 <app-colabs></app-colabs>
 <app-footer></app-footer> <!-- footer component html tag generated in footer.component.ts-->
