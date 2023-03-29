@@ -1,11 +1,17 @@
-<div class="person-interpolation">
-  <h3>Nome: {{person.name}}</h3>
-  <ul>
-    <li>Id: {{person.id}}</li>
-    <li>Salário: {{person.wage}}</li>
-    <li>Cargo: {{person.ocupation}}</li>
-  </ul>
-</div>
-<button (click)="addColab()">Adicionar colaborador</button>
-<br>
 <input type="text" (keyup)="typed($event)">
+<br>
+<button (click)="toggleColab()">Mostrar colaboradores</button>
+<hr>
+<!-- structural directive (ngIf) -->
+<section *ngIf="showColab">
+  <div class="person-interpolation">
+    <h3>Nome: {{person.name}}</h3>
+    <ul>
+      <li>Id: {{person.id}}</li>
+      <li>Salário: {{person.wage}}</li>
+      <li>Cargo: {{person.ocupation}}</li>
+    </ul>
+  </div>
+  <!-- event binding (functions in colabs.ts) -->
+  <button (click)="addColab()">Adicionar colaborador</button>
+</section>

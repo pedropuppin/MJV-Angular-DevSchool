@@ -20,6 +20,12 @@ export class ColabsComponent {
   typed(event: any) {
     console.log(event.target.value)
   }
+
+  showColab = false;
+
+  toggleColab () {
+    this.showColab = !this.showColab;
+  }
 }
 
 interface Colaborator {
