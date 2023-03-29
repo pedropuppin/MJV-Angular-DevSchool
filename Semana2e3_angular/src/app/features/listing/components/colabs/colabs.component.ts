@@ -16,6 +16,10 @@ export class ColabsComponent {
   addColab () {
     alert("Esse botão é meramente ilustrativo")
   }
+
+  typed(event: any) {
+    console.log(event.target.value)
+  }
 }
 
 interface Colaborator {
