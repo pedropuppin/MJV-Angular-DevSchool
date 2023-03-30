@@ -1,0 +1,17 @@
+<button (click)="toggleColab()">Mostrar colaboradores</button>
+<hr>
+<!-- structural directive (ngIf) -->
+<div *ngIf="showColab">
+  <div class="colabs-loop" *ngFor="let colaborator of colaborators">
+    <div class="person-interpolation">
+      <h3>Nome: {{colaborator.name}}</h3>
+      <ul>
+        <li>Id: {{colaborator.id}}</li>
+        <li>Salário: {{colaborator.wage}}</li>
+        <li>Cargo: {{colaborator.ocupation}}</li>
+        <li [ngClass]="{'open': colaborator.openToWork, 'not-open': !colaborator.openToWork }">{{colaborator.openToWork ? "Disponível" : "Contratado"}}</li>
+      </ul>
+    </div>
+  </div>
+  <!-- event binding (functions in colabs.ts) -->
+  <button (click)="addColab()">Adicionar colaborador</button>
