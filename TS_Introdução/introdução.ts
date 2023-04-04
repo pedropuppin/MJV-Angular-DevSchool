@@ -1,6 +1,6 @@
 // "tsc --init" -> cria o arquivo tsconfig.json com as configs recomendadas
 // "tsc" -> compila o projeto
-// "npm install --save-dev typescript" -> instala o typescript na pasta node modules do projeto 
+// "npm install --save-dev typescript" -> instala o typescript na pasta node modules do projeto
 
 let boolean: boolean = false;
 let string: string = "abc"
@@ -110,6 +110,8 @@ class UserDevSchool {
 interface TemMaterias {
   materias: string[];
 }
+
+// EXTENDS copy everything from a class and IMPLEMENTS only inherit the "shape"
 
 class Professor extends UserDevSchool implements TemMaterias {
   materias: string[];
