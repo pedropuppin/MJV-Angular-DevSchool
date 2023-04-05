@@ -1,4 +1,4 @@
-// 1 -> KEYOF - takes an object type and produces a string or numeric literal UNION of its keys
+// 1 -> KEYOF - representa o conjunto de chaves válidas para aquele objeto. Gera uma union
 interface Professor {
   name: string;
   age: number;
@@ -6,6 +6,24 @@ interface Professor {
 
 type ProfessorProperties = keyof Professor // name | age
 const professorProperties: ProfessorProperties = 'name'
+
+// ex2
+const person = {
+  name: 'João',
+  age: 30,
+  address: {
+    street: 'Rua abc',
+    number: 123
+  }
+};
+
+type PersonKeys = keyof typeof person;
+
+// ex3
+const getProperty = <T, K extends keyof T>(obj: T, key: K): T[K] => obj[key]; // 'keyof' garante que o argumento key (K) seja uma chave válida para o obj (T)
+const personName = getProperty(person, 'name'); //string
+const personAge = getProperty(person, 'age'); // number
+const personStreet = getProperty(person.address, 'street'); //string
 
 
 // 2 -> ITERSECTION - combina diferentes tipos (a diferença entre intesection e union é que o intersection PRECISA conter todas as propriedades definidas nos tipos)
