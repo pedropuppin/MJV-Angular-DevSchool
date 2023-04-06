@@ -22,7 +22,9 @@ const NamedPerson = addFirstAndLastName(Person);
 const namedPerson = new NamedPerson(); // dá acesso a "namedPerson.firstName" e "namedPerson.lastName"
 
 
-type HasFullName = {}
+type HasFullName = {
+  getFullName(): string;
+}
 
 const fullNamed = <Base extends Constructor<HasName>>(base: Base) => {
   return class extends base{
