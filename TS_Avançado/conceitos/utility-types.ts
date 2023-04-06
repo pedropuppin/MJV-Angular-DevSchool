@@ -1,6 +1,6 @@
 // UTILITY TYPES -  são tipos genéricos predefinidos no TypeScript que nos permitem manipular outros tipos de forma mais fácil e conveniente.
 interface User {
-  id: number | null;
+  id: number | null; // null - representa um valor nulo
   name: string;
   email?: string;
 }
