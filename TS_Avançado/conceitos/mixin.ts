@@ -21,7 +21,7 @@ interface NodeTyped {
   type: string;
 }
 
-const chengeableType = <TBase extends Constructor<NodeTyped>>(base: TBase) => {
+const chengeableType = <TBase extends Constructor<NodeTyped>>(base: TBase) => { // deve estender a interface NodeTyped
   return class extends base {
     setType(t: string) {
       this.type = t;
@@ -32,7 +32,7 @@ const chengeableType = <TBase extends Constructor<NodeTyped>>(base: TBase) => {
 
 // ex3
 class Nodes<T extends string> implements NodeTyped {
-  constructor (public readonly type: T) {
+  constructor(public readonly type: T) {
 
   }
 }
