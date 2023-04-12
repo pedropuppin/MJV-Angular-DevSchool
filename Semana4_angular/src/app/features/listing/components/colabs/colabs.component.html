@@ -1,6 +1,8 @@
+<!-- diretivas são compostas por classes do TS -->
+
 <button (click)="toggleColab()">Mostrar colaboradores</button>
 <hr>
-<!-- structural directive (ngIf) -->
+<!-- structural directives (ngIf) e (ngFor) -> para a manipulação do DOM, toda a lógica fica no colabs.component.ts -->
 <div *ngIf="showColab">
   <div class="colabs-loop" *ngFor="let colaborator of colaborators">
     <div class="person-interpolation">
@@ -9,6 +11,7 @@
         <li>Id: {{colaborator.id}}</li>
         <li>Salário: {{colaborator.wage}}</li>
         <li>Cargo: {{colaborator.ocupation}}</li>
+        <!-- diretiva de atributo (ngClass) -> o ":" funciona como um "if" https://angular.io/api/common/NgClass -->
         <li [ngClass]="{'open': colaborator.openToWork, 'not-open': !colaborator.openToWork }">{{colaborator.openToWork ? "Disponível" : "Contratado"}}</li>
       </ul>
     </div>
