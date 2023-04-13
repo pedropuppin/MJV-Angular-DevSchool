@@ -14,12 +14,14 @@ import { RouterModule, Routes } from '@angular/router';
 import { ColaboratorsComponent } from './features/listing/pages/colaborators/colaborators.component';
 import { ManagementModule } from './features/management/management.module';
 import { ManagementComponent } from './features/management/pages/management/management.component';
+import { DetailsColabComponent } from './features/listing/pages/details-colab/details-colab.component';
 
 
 const routes: Routes = [
   {path: '', redirectTo: 'colaborators', pathMatch: 'full' },
   {path: 'colaborators', component: ColaboratorsComponent},
-  {path: 'management', component: ManagementComponent }
+  {path: 'management', component: ManagementComponent },
+  {path: 'details-colab/:colaboratorId', component: DetailsColabComponent }
 ]
 
 @NgModule({

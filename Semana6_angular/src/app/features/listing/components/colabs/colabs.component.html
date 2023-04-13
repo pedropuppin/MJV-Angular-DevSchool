@@ -7,22 +7,17 @@ Outros tipos de pipes em -> https://angular.io/guide/pipes -->
 
 <!-- ex date pipe, tipos de formatação em -> https://angular.io/api/common/DatePipe#description -->
 <h3>Data de hoje: {{dataHoje | date: 	'medium'}}</h3>
-<button (click)="toggleColab()">Mostrar colaboradores</button>
+<button (click)="toggleColab()">Ocultar colaboradores</button>
 <hr>
 <!-- structural directives (ngIf) e (ngFor) -> para a manipulação do DOM, toda a lógica fica no colabs.component.ts -->
 <div *ngIf="showColab">
-  <div class="colabs-loop" *ngFor="let colaborator of colaborators">
-    <div class="person-interpolation">
+  <div class="colabs-loop">
+    <div class="person-interpolation" *ngFor="let colaborator of colaborators">
       <h3>Nome: {{colaborator.name}}</h3>
-      <ul>
-        <li>Id: {{colaborator.id}}</li>
-        <!-- exemplo de pipe currency. O padrão é em dólar, mas tem diversos tipos de formatação -> https://angular.io/api/common/CurrencyPipe -->
-        <li>Salário: {{colaborator.wage | currency: 'R$' }}</li>
-        <li>Cargo: {{colaborator.ocupation}}</li>
-        <!-- diretiva de atributo (ngClass) -> o ":" funciona como um "if" https://angular.io/api/common/NgClass -->
-        <li [ngClass]="{'open': colaborator.openToWork, 'not-open': !colaborator.openToWork }">{{colaborator.openToWork ? "Disponível" : "Contratado"}}</li>
-      </ul>
+      <h4>Cargo: {{colaborator.ocupation}}</h4>
+      <button class="details" (click)="detailsColab(colaborator.id)">Ver mais</button>
     </div>
   </div>
+  <hr>
   <!-- event binding (functions in colabs.ts) -->
   <button (click)="addColab()">Adicionar colaborador</button>

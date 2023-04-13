@@ -1,7 +1,24 @@
-.open {
-  color: green;
-}
+.colabs-loop {
+  display: flex;
+  flex-direction: row;
+  gap: 15px;
+  width: 100%;
 
-.not-open {
-  color: red;
+  .person-interpolation {
+    border: 1px solid #eeeeee;
+    width: 250px;
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    align-items: center;
+
+    li {
+      list-style: none;
+    }
+
+    .details {
+      width: 100%;
+      margin-top: 5px;
+    }
+  }
 }
