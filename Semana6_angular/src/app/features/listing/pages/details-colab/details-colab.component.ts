@@ -1,4 +1,4 @@
-import { Component } from '@angular/core';
+import { Component, OnInit } from '@angular/core';
 import { ActivatedRoute } from '@angular/router';
 import { ColaboratorsService } from 'src/app/shared/services/colaborators.service';
 import { Colaborator } from '../../models/colaborators.model';
@@ -7,7 +7,7 @@ import { Colaborator } from '../../models/colaborators.model';
   templateUrl: './details-colab.component.html',
   styleUrls: ['./details-colab.component.scss']
 })
-export class DetailsColabComponent {
+export class DetailsColabComponent implements OnInit {
   constructor (
     private activatedRoute: ActivatedRoute,
     private colaboratorsService: ColaboratorsService
