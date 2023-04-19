@@ -1,9 +1,10 @@
 <nav>
-  <h3>MJV Store</h3>
+  <h3>MJV Semana 7</h3>
   <ul>
     <li appRed (click)="navigateByUrl('')">Home</li>
-    <li (click)="navigateByUrl('colaborators')">Colaboradores</li>
-    <li (click)="navigateByUrl('management')">Gerenciamento</li>
+    <li (click)="navigateByUrl('colaborators')" *ngIf="user">Colaboradores</li>
+    <li (click)="navigateByUrl('management')" *ngIf="user">Gerenciamento</li>
+    <li (click)="navigateByUrl('login')" *ngIf="!user">Login</li>
+    <li *ngIf="user" (click)="exit()">Sair</li>
   </ul>
 </nav>
-

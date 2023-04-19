@@ -13,7 +13,7 @@ import { FormsModule } from '@angular/forms';
   imports: [
     CommonModule,
     SharedModule,
-    FormsModule
+    FormsModule // responsável pelo ng model (tem que importar sempre que for usar essa funcionalidade)
   ]
 })
 export class LoginModule { }

@@ -15,13 +15,20 @@ import { ColaboratorsComponent } from './features/listing/pages/colaborators/col
 import { ManagementModule } from './features/management/management.module';
 import { ManagementComponent } from './features/management/pages/management/management.component';
 import { DetailsColabComponent } from './features/listing/pages/details-colab/details-colab.component';
+import { LoginPageComponent } from './features/login/pages/login-page/login-page.component';
+import { LoginModule } from './features/login/login.module';
+import { HomePageComponent } from './features/home/pages/home-page/home-page.component';
+import { HomeModule } from './features/home/home.module';
+import { AuthGuardGuard } from './shared/guards/auth-guard.guard';
 
 
 const routes: Routes = [
-  {path: '', redirectTo: 'colaborators', pathMatch: 'full' },
-  {path: 'colaborators', component: ColaboratorsComponent},
-  {path: 'management', component: ManagementComponent },
-  {path: 'details-colab/:colaboratorId', component: DetailsColabComponent }
+  {path: '', redirectTo: 'home', pathMatch: 'full' },
+  {path: 'home', component: HomePageComponent},
+  {path: 'colaborators', component: ColaboratorsComponent, canActivate: [AuthGuardGuard]}, // chama a função canActivate definida lá no auth-guard.guard.ts
+  {path: 'management', component: ManagementComponent, canActivate: [AuthGuardGuard] },
+  {path: 'details-colab/:colaboratorId', component: DetailsColabComponent, canActivate: [AuthGuardGuard] },
+  { path: 'login', component: LoginPageComponent }
 ]
 
 @NgModule({
@@ -34,6 +41,8 @@ const routes: Routes = [
     ListingModule,
     ManagementModule,
     RouterModule.forRoot(routes),
+    LoginModule,
+    HomeModule
   ],
   providers: [ // precisa criar um provider para o padrão do pipe ptBR
     {
