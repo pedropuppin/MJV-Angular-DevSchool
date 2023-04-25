@@ -163,73 +163,126 @@ export default function Index() {
     );
 
   // Exercícios
-  // 1. Faça um observable que transforme os valores de interval$ em um valor constante (mapTo)
-  const exr1$ = count$
-    .pipe(
-      mapTo(10)
-    );
+  // 1. Faça um observable que transforme os valores de count$ em um valor constante (mapTo)
+    const exr1$ = count$
+      .pipe(
+        mapTo(10)
+      );
 
-  // 2. Faça um observable que transforme os valores de interval$ em um valor calculado (map)
-  const exr2$ = count$
-    .pipe(
-      map(x => x * 2)
-    );
 
-  // 3. Faça um observable que emita a soma dos valores emitidos pelo interval$ toda vez que ele emitir um valor (scan)
-  const exr3$ = count$
-    .pipe(
-      scan((acc, i) => acc + i, 0)
-    );
+  // 2. Faça um observable que transforme os valores de count$ em um valor calculado (map)
+    const exr2$ = count$
+      .pipe(
+        map(x => x * 2)
+      );
 
-  // 4. Faça um observable que sempre que se fazer um click$, ele dispare uma requisição (simulateRequest) e emita o resultado no mesmo observable (mergeMap)
-  const exr4$ = click$
-    .pipe(
-      mergeMap(c => simulateRequest(0))
-      // mapeia os valores emitidos por um Observable para outro Observable e, em seguida, combina os valores emitidos por esses Observables internos em um único Observable externo
-    );
+
+  // 3. Faça um observable que emita a soma dos valores emitidos pelo count$ toda vez que ele emitir um valor (scan)
+    const exr3$ = count$
+      .pipe(
+        scan((acc, i) => acc + i, 0)
+      );
+
+
+  // 4. Faça um observable que sempre que se fizer um click$, ele dispare uma requisição (simulateRequest) e emita o resultado no mesmo observable (mergeMap)
+    const exr4$ = click$
+      .pipe(
+        mergeMap(c => simulateRequest(0)) // o 0 no simulatedRequest é a chance de erro da requisição definida na função da linha 54
+        // mapeia os valores emitidos por um Observable para outro Observable e, em seguida, combina os valores emitidos por esses Observables internos em um único Observable externo
+      );
+
 
   // 5. Faça um observable que sempre que se um fizer click$, ele dispare uma requisição (simulateRequest) e emita o resultado no mesmo observable,
   // mas se for clickado uma outra vez antes da requisição terminar, ele cancele a requisição anterior e passe a escutar somente o resultado da requisição mais recente (switchMap)
-  const exr5$ = click$
-    .pipe(
-      switchMap(c => simulateRequest(0))
-    );
+    const exr5$ = click$
+      .pipe(
+        switchMap(c => simulateRequest(0))
+        // funciona igual ao merge map, porém, cancela a requisição anterior caso uma nova seja emitida
+      );
+
 
   // 6. Faça um observable que sempre que se um fazer click$, ele dispare uma requisição (simulateRequest) e emita o resultado no mesmo observable,
   // mas se for clickado mais vezes antes da requisição terminar, ele ignore os cliques até que a requisição seja terminada (exhaustMap)
+    const exr6$ = click$
+      .pipe(
+        exhaustMap(c => simulateRequest(0))
+      );
 
-
+      
   // 7. Faça um observable que emita somente quando o usuário pressionar a key$ de "enter". (filter)
+    const exr7$ = key$
+      .pipe(
+        filter(k => k === "Enter")
+      );
 
 
   // 8. Faça um observable que emita o valor total do input de texto somente quando o usuário parar de digitar por mais de 300 milisegundos (debounceTime)
+    const exr8$ = key$
+      .pipe(
+        debounceTime(300)
+        // popular em cenários onde precisa controlar a taxa de inputs (type-ahead)
+      );
 
 
   // 9. Usando o observable do exercício 8, Simule uma situação de "pesquisa", ou seja, crie um novo observable que dispara uma requisição ao receber esse valor do input,
   // e considera somente a última requisição caso seja emitido outro valor de input. (switchMap)
+    const exr9$ = exr8$
+      .pipe(
+        switchMap(pesquisa => simulateRequest(0))
+      );
 
 
   // 10. Faça com que o observable de key$ não emita valores repetidos em sequência (distinctUntilChanged)
+    const exr10$ = key$
+      .pipe(
+        distinctUntilChanged()
+        // se colocar a mesma letra em sequência ele para de emitir a requisição
+      );
 
 
-  // 11. Faça um observable que combine os últimos valores emitidos pelo interval$, click$ e input$ e emita sua combinação como uma tupla (combineLatest)
+  // 11. Faça um observable que combine os últimos valores emitidos pelo count$, click$ e input$ e emita sua combinação como uma tupla (combineLatest)
+    const exr11$ = combineLatest([count$, click$, input$])
+    // só vai emitir um valor quando todos os observables emitirem um valor
 
 
-  // 12. Faça um observable que periodicamente (interval$) emita o último valor digitado no input (withLatestFrom + map)
+  // 12. Faça um observable que periodicamente (count$) emita o último valor digitado no input (withLatestFrom + map)
+    const exr12$ = count$
+      .pipe(
+        withLatestFrom(input$), // repete o último valor emitido pelo input$
+        map(tupla => tupla[1]), // pega o segundo valor da tupla
+        filter(i => i !== "") // filtra os valores vazios
+      );
 
 
   // 13. Faça um observable que ao pressionar o mouse (mouseDown), comece a emitir os valores de mouseMove$ e para de emitir quando o mouse levantar (mouseUp),
   // mas sem completar o observable principal.
-
+    const exr13$ = mouseDown$
+      .pipe(
+        switchMap(() => mouseMove$
+          .pipe(
+            takeUntil(mouseUp$)
+            // o takeUntil fica dentro do pipe do switchMap, pois ele só vai ser executado quando o mouseDown$ for emitido
+          )
+        )
+      );
 
   // Array de observables que será renderizado na tela, já vai ser feita a subscription em cada um deles pelo componente de renderização.
   // Comente e descomente as linhas para facilitar a sua visualização
   const observables: Array<[name: string, observable: Observable<any>]> = [
-    ["count$", count$],
     ["exr1$", exr1$],
     ["exr2$", exr2$],
     ["exr3$", exr3$],
     ["exr4$", exr4$],
+    ["exr5$", exr5$],
+    ["exr6$", exr6$],
+    ["exr7$", exr7$],
+    ["exr8$", exr8$],
+    ["exr9$", exr9$],
+    ["exr10$", exr10$],
+    ["exr11$", exr11$],
+    ["exr12$", exr12$],
+    ["exr13$", exr13$],
+    // ["count$", count$],
     // ["producer$", producer$],
     // ["mouseMove$", mouseMove$],
     // ["mouseDown$", mouseDown$],
