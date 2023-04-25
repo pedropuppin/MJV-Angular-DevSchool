@@ -190,7 +190,10 @@ export default function Index() {
 
   // 5. Faça um observable que sempre que se um fizer click$, ele dispare uma requisição (simulateRequest) e emita o resultado no mesmo observable,
   // mas se for clickado uma outra vez antes da requisição terminar, ele cancele a requisição anterior e passe a escutar somente o resultado da requisição mais recente (switchMap)
-
+  const exr5$ = click$
+    .pipe(
+      switchMap(c => simulateRequest(0))
+    );
 
   // 6. Faça um observable que sempre que se um fazer click$, ele dispare uma requisição (simulateRequest) e emita o resultado no mesmo observable,
   // mas se for clickado mais vezes antes da requisição terminar, ele ignore os cliques até que a requisição seja terminada (exhaustMap)
