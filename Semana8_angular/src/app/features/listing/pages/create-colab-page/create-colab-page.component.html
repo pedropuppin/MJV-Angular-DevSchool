@@ -1,0 +1,34 @@
+<app-header></app-header>
+<div class="register-container">
+  <h3>Cadastro de Colaboradores</h3>
+  <!-- Chamado do formGroup ligando ao modelo criado no create-colab-page.component.ts -->
+  <form class="register-form" [formGroup]="colaboratorForm">
+    <div class="form-field">
+      <label class="label-input">Nome do colaborador:</label>
+      <input type="text" placeholder="João" formControlName="name">
+    </div>
+    <div class="form-field">
+      <label class="label-input">Ocupação do colaborador:</label>
+      <input type="text" placeholder="Designer" formControlName="ocupation">
+    </div>
+    <div class="form-field">
+      <label class="label-input">Faixa salarial:</label>
+      <input type="number" formControlName="wage">
+      <span class="error" *ngIf="colaboratorForm.controls.wage.errors">
+      O valor da do produto deve estar entre 1500 e 5000*</span>
+    </div>
+    <div class="form-field">
+      <label class="label-input">Disponibilidade para trabalhar:</label>
+      <input type="text" placeholder="Digite a url" formControlName="openToWork">
+    </div>
+    <div class="action-form">
+      <!-- [disabled] desabilita o botão do formulário quando o ".invalid === true" -->
+      <button class="cadastrarProduto" type="submit" (click)="onSubmit()" >Salvar</button>
+    </div>
+  </form>
+</div>
+<app-footer></app-footer>
+
+
+<!-- página criada com "ng g c features/listing/pages/create-colab-page --skip-selector" -->
+<!-- teve que ser feita a importação do ReactiveFormsModule no listing.module.ts -->

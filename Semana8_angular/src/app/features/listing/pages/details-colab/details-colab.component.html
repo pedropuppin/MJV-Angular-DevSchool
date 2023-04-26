@@ -1,0 +1,12 @@
+<app-header></app-header>
+<div class="colaborator" *ngIf="colaborator">
+  <ul>
+    <li>Id: {{colaborator.id}}</li>
+    <!-- exemplo de pipe currency. O padrão é em dólar, mas tem diversos tipos de formatação -> https://angular.io/api/common/CurrencyPipe -->
+    <li>Salário: {{colaborator.wage | currency: 'R$' }}</li>
+    <li>Cargo: {{colaborator.ocupation}}</li>
+    <!-- diretiva de atributo (ngClass) -> o ":" funciona como um "if" https://angular.io/api/common/NgClass -->
+    <li [ngClass]="{'open': colaborator.openToWork, 'not-open': !colaborator.openToWork }">{{colaborator.openToWork ? "Disponível" : "Contratado"}}</li>
+  </ul>
+</div>
+<app-footer></app-footer>
