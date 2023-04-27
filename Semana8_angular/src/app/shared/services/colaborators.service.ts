@@ -53,6 +53,16 @@ export class ColaboratorsService {
   getById(id: number) {
     return this.colaborators.find((colaborators) => colaborators.id === id);
   }
+
+  create(colaborator: Colaborator) {
+    colaborator.id = this.generateNextId();
+    this.colaborators.push(colaborator);
+  }
+
+  generateNextId() {
+    return this.colaborators[(this.colaborators.length - 1)].id + 1;
+    // essa função pega o tamanho da array e subtrai 1, pq o index começa em 0, e depois soma 1, pra gerar o próximo id
+  }
 }
 
 

@@ -19,7 +19,7 @@ export class DetailsColabComponent implements OnInit {
     this.activatedRoute.params.subscribe((params) => {
       // console.log(params); => retorna o id do colaborator como uma STRING
       const id = parseInt(params['colaboratorId']); // transforma a params em INT pra ser aceita pela função "detailsColab" no "colabs.component.ts"
-      this.colaborator = this.colaboratorsService.getById(id);
+      this.colaborator = this.colaboratorsService.getById(id); // função definid no service de colaborators
       // console.log(this.colaborator); => retorna o objeto inteiro
     })
   }

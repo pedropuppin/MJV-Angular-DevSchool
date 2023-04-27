@@ -18,12 +18,15 @@
       O valor da do produto deve estar entre 1500 e 5000*</span>
     </div>
     <div class="form-field">
-      <label class="label-input">Disponibilidade para trabalhar:</label>
-      <input type="text" placeholder="Digite a url" formControlName="openToWork">
+      <label class="label-input" for="openToWork">Disponibilidade para trabalhar:</label><br>
+      <input type="radio" id="Disponível" name="openToWork" value="true" formControlName="openToWork">
+      <label for="Disponível">Disponível</label><br>
+      <input type="radio" id="Contratado" name="openToWork" value="false" formControlName="openToWork">
+      <label for="Contratado">Contratado</label><br>
     </div>
     <div class="action-form">
       <!-- [disabled] desabilita o botão do formulário quando o ".invalid === true" -->
-      <button class="cadastrarProduto" type="submit" (click)="onSubmit()" >Salvar</button>
+      <button class="cadastrarProduto" type="submit" (click)="onSubmit()" [disabled]="colaboratorForm.invalid === true">Salvar</button>
     </div>
   </form>
 </div>

@@ -1,7 +1,7 @@
 export interface Colaborator {
   id: number;
-  name: string;
-  wage: number;
-  ocupation: string;
+  name: string ;
+  wage: number ;
+  ocupation: string ;
   openToWork: boolean;
 }

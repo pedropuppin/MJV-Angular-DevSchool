@@ -15,7 +15,7 @@ export class LoginPageComponent {
   constructor (private userServices: UsersService, private router: Router) {}
 
   authenticate () {
-    const user = this.userServices.getUserByEmailAndPassword(this.email, this.password)
+    const user = this.userServices.getUserByEmailAndPassword(this.email, this.password) // função definida no service de users
 
     if(user) {
       sessionStorage.setItem('user', JSON.stringify(user)) // ***
