@@ -23,8 +23,7 @@ import { ReactiveFormsModule } from '@angular/forms';
   ],
   exports: [
     ColabsComponent,
-    ColaboratorsComponent,
-
+    ColaboratorsComponent
   ]
 })
 export class ListingModule { }
