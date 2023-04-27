@@ -14,15 +14,15 @@ export class CreateColabPageComponent{
     private colaboratorsService: ColaboratorsService
   ) { }
 
-  colaboratorForm = new FormGroup({ 
-    name: new FormControl('', [Validators.required]),
+  colaboratorForm = new FormGroup({ // é o grupo responsável pelo formulário
+    name: new FormControl('', [Validators.required]), // cada valor é um formControl, que pode ter validações e um valor inicial definido (no caso, vazio)
     ocupation: new FormControl('', [Validators.required]),
     wage: new FormControl(1500, [Validators.required, Validators.min(1500), Validators.max(5000)]),
     openToWork: new FormControl(null, [Validators.required])
   })
 
   onSubmit() {
-    const formValue: any = this.colaboratorForm.value
+    const formValue: any = this.colaboratorForm.value // pega o valor do formulário e guarda na variável formValue
     // console.log(formValue);
     formValue.openToWork = formValue.openToWork === 'true' ? true : false
     this.colaboratorsService.create(formValue)
