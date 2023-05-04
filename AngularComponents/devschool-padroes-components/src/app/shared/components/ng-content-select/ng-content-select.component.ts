@@ -30,3 +30,8 @@ export class NgContentSelectComponent {
   @ContentChild(PureComponentComponent)
   pureComponent!: PureComponentComponent;
 }
+
+// <ng-content select="[top-left]"> -> tem um selector que vai selecionar o conteúdo que tem o atributo top-left
+// ele seleciona o contéúdo lá no story
+
+// Conseguimos segmentar o conteúdo que queremos projetar dentro do componente. (conteúdo no story)

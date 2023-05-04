@@ -15,4 +15,12 @@ Rodar projeto com `npm run storybook`
 # Arquivos com explicações
 
 1) Pure Components -> src/app/shared/components/pure-components
+
 2) Form Components -> src/app/shared/components/counter
+
+3) Father/Son Component -> src/app/shared/components/parent-child
+
+4) Content-Projection -> src/app/shared/components/ng-content-select
+                      -> src/app/shared/components/ng-content-simple
+
+5) Diretivas para adicionar comportamento à conteúdo -> src/app/shared/components/content-trigger

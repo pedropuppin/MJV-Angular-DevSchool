@@ -27,3 +27,11 @@ const Template: Story<ContentTriggerComponent> = (
 
 export const Basic = Template.bind({});
 Basic.args = {};
+
+
+// <button app-content-trigger [customData]="'Fechar'">X</button> -> customData é um input da diretiva. Quando clicar no X, vai disparar o evento
+// onClick na diretiva e vai passar o valor 'Fechar' para o componente pai pela função triggerSomeEvent()
+
+
+// <button app-content-trigger [customData]="{ prop: 'some data' }"> -> É outro botão que recebe uma customData "{ prop: 'some data' }". Quando
+// clicar vai disparar o evento onClick na diretiva e vai passar o valor "{ prop: 'some data' }" para o componente pai pela função triggerSomeEvent()

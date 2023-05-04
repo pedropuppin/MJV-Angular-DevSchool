@@ -18,11 +18,11 @@ const Template: Story<NgContentSimpleComponent> = (
     imports: [SharedModule],
   },
   template: `
-<app-ng-content-simple>
-    <h1>My content</h1>
-    <app-pure-component></app-pure-component>
-</app-ng-content-simple>
-`,
+  <app-ng-content-simple>
+      <h1>My content</h1>
+      <app-pure-component></app-pure-component>
+  </app-ng-content-simple>
+  `,
 });
 
 export const Basic = Template.bind({});
