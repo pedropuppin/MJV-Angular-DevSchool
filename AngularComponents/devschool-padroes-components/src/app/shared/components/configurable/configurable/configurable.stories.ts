@@ -15,10 +15,11 @@ const Template: Story<ConfigurableComponent> = (
   props: args,
   moduleMetadata: {
     imports: [
-      ConfigurableModule.forRoot({
+      ConfigurableModule.forRoot({ // chamando a função estática forRoot() do configurable.module.ts e passando as config de "color"
         color: 'green',
       }),
     ],
+    // Descomentar o código abaixo para ver o efeito da config sendo passada direto com o provider
     // providers: [
     //   {
     //     provide: CONFIG_TOKEN,
@@ -30,6 +31,7 @@ const Template: Story<ConfigurableComponent> = (
     //   },
     // ],
   },
+  // rederizando o componente
   template: `
   <app-configurable></app-configurable>
   `,

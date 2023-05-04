@@ -20,7 +20,7 @@ const Template: Story<CustomTemplateComponent> = (
   [title]="title"
   [subtitle]="subtitle"
   [template]="customTemplate"
-  [templateConteudo]="null"
+  [templateConteudo]="templateConteudo"
   [textos]="['a', 'b', 'c']"
 >
 </app-custom-template>

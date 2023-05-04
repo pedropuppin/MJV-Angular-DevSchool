@@ -26,5 +26,10 @@ export class ConfigurableComponent {
     this.color = config.color;
     this.backgroundColor = config.backgroundColor;
     this.borderRadius = config.borderRadius;
+    // seta as propriedades do config para as propriedades do componente
   }
 }
+
+// @HostBinding -> serve para setar algum estilo ou propriedade para alterar o comportamento no elemento que está sendo renderizado
+
+// @Inject(CONFIG_TOKEN) -> está injetando o CONFIG_TOKEN que é do tipo ComponentConfig no "config"

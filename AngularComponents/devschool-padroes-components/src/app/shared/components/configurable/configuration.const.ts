@@ -2,8 +2,8 @@ import { InjectionToken } from '@angular/core';
 
 export interface ComponentConfig {
   color: string;
-  backgroundColor: string;
   borderRadius: string;
+  backgroundColor: string;
 }
 
 export const CONFIG_TOKEN = new InjectionToken<ComponentConfig>(
@@ -12,6 +12,6 @@ export const CONFIG_TOKEN = new InjectionToken<ComponentConfig>(
 
 export const DEFAULT_CONFIG: ComponentConfig = {
   color: 'red',
-  backgroundColor: 'black',
   borderRadius: '1rem',
+  backgroundColor: 'black',
 };

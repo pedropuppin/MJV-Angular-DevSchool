@@ -14,13 +14,13 @@ import {
   providers: [
     {
       provide: CONFIG_TOKEN,
-      useValue: DEFAULT_CONFIG,
+      useValue: DEFAULT_CONFIG, // falando pra usar expecificamente as especificações do DEFAULT_CONFIG
     },
   ],
 })
 export class ConfigurableModule {
   public static forRoot(
-    config: Partial<ComponentConfig>
+    config: Partial<ComponentConfig> // o Partial permite que as propriedades do ComponentConfig sejam opcionais
   ): ModuleWithProviders<ConfigurableModule> {
     return {
       ngModule: ConfigurableModule,
@@ -35,6 +35,12 @@ export class ConfigurableModule {
           },
         },
       ],
+      // Vai retornar o mesmo módulo, onde o provider vai ser sobreescrito com o useFactory retornando as DEFAULT_CONFIG mergeadas
+      // com as "config" passadas pelo usuário
     };
   }
 }
+
+// O método estático forRoot é usado como um construtor personalizado para o módulo ConfigurableModule.
+// Ele permite que os desenvolvedores possam passar um objeto de configuração para personalizar o comportamento
+// do módulo sem precisar criar uma nova instância da classe ConfigurableModule

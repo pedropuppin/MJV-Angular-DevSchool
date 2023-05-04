@@ -24,3 +24,9 @@ Rodar projeto com `npm run storybook`
                       -> src/app/shared/components/ng-content-simple
 
 5) Diretivas para adicionar comportamento à conteúdo -> src/app/shared/components/content-trigger
+
+6) Custom templates -> src/app/shared/components/custom-templates
+
+7) Configurable Templates -> src/app/shared/components/configurable/configurable
+
+8) Dynamic Components -> src/app/shared/components/dynamic

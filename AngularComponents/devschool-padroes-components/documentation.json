@@ -163,10 +163,10 @@
         },
         {
             "name": "TemplateContext",
-            "id": "interface-TemplateContext-c366837329ce3acf8a4dab497e53e4d7",
+            "id": "interface-TemplateContext-924aae10280ed93167c50399321aeacf",
             "file": "src/app/shared/components/custom-template/custom-template.component.ts",
             "type": "interface",
-            "sourceCode": "import {\n  Component,\n  ViewEncapsulation,\n  ChangeDetectionStrategy,\n  Input,\n  TemplateRef,\n} from '@angular/core';\n\nexport interface TemplateContext {\n  $implicit: string;\n  title: string;\n  subtitle: string;\n}\n\n@Component({\n  selector: 'app-custom-template',\n  templateUrl: './custom-template.component.html',\n  styleUrls: ['./custom-template.component.scss'],\n  encapsulation: ViewEncapsulation.Emulated,\n  changeDetection: ChangeDetectionStrategy.OnPush,\n})\nexport class CustomTemplateComponent {\n  @Input()\n  title!: string;\n\n  @Input()\n  subtitle!: string;\n\n  @Input()\n  template: TemplateRef<TemplateContext> | null = null;\n\n  @Input()\n  templateConteudo: TemplateRef<TemplateContext> | null = null;\n\n  @Input()\n  textos!: string[];\n}\n",
+            "sourceCode": "import {\n  Component,\n  ViewEncapsulation,\n  ChangeDetectionStrategy,\n  Input,\n  TemplateRef,\n} from '@angular/core';\n\nexport interface TemplateContext {\n  $implicit: string;\n  title: string;\n  subtitle: string;\n}\n\n@Component({\n  selector: 'app-custom-template',\n  templateUrl: './custom-template.component.html',\n  styleUrls: ['./custom-template.component.scss'],\n  encapsulation: ViewEncapsulation.Emulated,\n  changeDetection: ChangeDetectionStrategy.OnPush,\n})\n\n// Componente com vários inputs que vai renderizar dois componentes\nexport class CustomTemplateComponent {\n  @Input()\n  title!: string;\n\n  @Input()\n  subtitle!: string;\n\n  @Input()\n  template: TemplateRef<TemplateContext> | null = null;\n\n  @Input()\n  templateConteudo: TemplateRef<TemplateContext> | null = null;\n\n  @Input()\n  textos!: string[];\n}\n\n\n// Podemos usar a tag <ng-template> como uma forma de customizar o conteúdo de um componente. Precisa usar a diretiva templateOutlet\n",
             "properties": [
                 {
                     "name": "$implicit",
@@ -200,18 +200,18 @@
     "directives": [
         {
             "name": "ContentTriggerDirective",
-            "id": "directive-ContentTriggerDirective-3efba65131320020b8ff5b4294ea83bf",
+            "id": "directive-ContentTriggerDirective-ed47f0059c4cffd43cb33fd5f860c153",
             "file": "src/app/shared/components/content-trigger/content-trigger.directive.ts",
             "type": "directive",
             "description": "",
-            "sourceCode": "import { Directive, HostListener, Input } from '@angular/core';\nimport { ContentTriggerComponent } from './content-trigger.component';\n\n@Directive({\n  // eslint-disable-next-line @angular-eslint/directive-selector\n  selector: '[app-content-trigger]',\n})\nexport class ContentTriggerDirective<T = any> {\n  @Input()\n  customData: T | undefined = undefined;\n\n  @HostListener('click')\n  onClick(): void {\n    this.parent.triggerSomeEvent(this.customData);\n  }\n\n  constructor(private parent: ContentTriggerComponent) {\n    console.log('trigger');\n  }\n}\n",
+            "sourceCode": "import { Directive, HostListener, Input } from '@angular/core';\nimport { ContentTriggerComponent } from './content-trigger.component';\n\n@Directive({\n  // eslint-disable-next-line @angular-eslint/directive-selector\n  selector: '[app-content-trigger]', // [app-content-trigger] -> é uma diretiva de atributo que vai ser aplicada no botão (nesse caso\n  // tem o mesmo nome que o componente, mas não precisa ser o mesmo nome)\n})\nexport class ContentTriggerDirective<T = any> {\n  @Input()\n  customData: T | undefined = undefined;\n\n  @HostListener('click')\n  onClick(): void {\n    this.parent.triggerSomeEvent(this.customData);\n  }\n\n  constructor(private parent: ContentTriggerComponent) { // injetando o componente pai\n    console.log('trigger');\n  }\n}\n\n\n// @HostListener -> é um decorator que vai escutar um evento no elemento que a diretiva está aplicada\n",
             "selector": "[app-content-trigger]",
             "providers": [],
             "inputsClass": [
                 {
                     "name": "customData",
                     "defaultValue": "undefined",
-                    "line": 10,
+                    "line": 11,
                     "type": "T | undefined"
                 }
             ],
@@ -222,7 +222,7 @@
                     "name": "click",
                     "args": [],
                     "argsDecorator": [],
-                    "line": 13
+                    "line": 14
                 }
             ],
             "propertiesClass": [],
@@ -236,7 +236,7 @@
                         "type": "ContentTriggerComponent"
                     }
                 ],
-                "line": 15,
+                "line": 16,
                 "jsdoctags": [
                     {
                         "name": "parent",
@@ -481,11 +481,11 @@
                 }
             ],
             "stylesData": "",
-            "templateData": "<h1><ng-content select=\"[titulo]\"></ng-content></h1>\n\n<div>\n  Conteúdo\n</div>\n\n<ng-content></ng-content>\n\n<button app-content-trigger>Outro trigger</button>\n"
+            "templateData": "<h1><ng-content select=\"[titulo]\"></ng-content></h1>\n\n<div>\n  Conteúdo\n</div>\n\n<ng-content></ng-content>\n\n<!-- botão que vai disparar o trigger. Usa a mesma diretiva usada no story -->\n<button app-content-trigger>Outro trigger</button>\n"
         },
         {
             "name": "CounterComponent",
-            "id": "component-CounterComponent-cc09666f6e594054fd1e9d0be5828ce4",
+            "id": "component-CounterComponent-aa52d5945e2f7509741c5bde075bc5ba",
             "file": "src/app/shared/components/counter/counter.component.ts",
             "encapsulation": [],
             "entryComponents": [],
@@ -515,7 +515,7 @@
                     "type": "null | ",
                     "optional": false,
                     "description": "",
-                    "line": 19
+                    "line": 20
                 },
                 {
                     "name": "onTouched",
@@ -523,7 +523,7 @@
                     "type": "null | ",
                     "optional": false,
                     "description": "",
-                    "line": 20
+                    "line": 21
                 },
                 {
                     "name": "value",
@@ -531,7 +531,7 @@
                     "type": "number",
                     "optional": false,
                     "description": "",
-                    "line": 17
+                    "line": 18
                 }
             ],
             "methodsClass": [
@@ -541,7 +541,7 @@
                     "optional": false,
                     "returnType": "void",
                     "typeParameters": [],
-                    "line": 38
+                    "line": 40
                 },
                 {
                     "name": "plus",
@@ -549,32 +549,10 @@
                     "optional": false,
                     "returnType": "void",
                     "typeParameters": [],
-                    "line": 27
+                    "line": 28
                 },
                 {
                     "name": "registerOnChange",
-                    "args": [
-                        {
-                            "name": "fn",
-                            "type": "any"
-                        }
-                    ],
-                    "optional": false,
-                    "returnType": "void",
-                    "typeParameters": [],
-                    "line": 49,
-                    "jsdoctags": [
-                        {
-                            "name": "fn",
-                            "type": "any",
-                            "tagName": {
-                                "text": "param"
-                            }
-                        }
-                    ]
-                },
-                {
-                    "name": "registerOnTouched",
                     "args": [
                         {
                             "name": "fn",
@@ -596,6 +574,28 @@
                     ]
                 },
                 {
+                    "name": "registerOnTouched",
+                    "args": [
+                        {
+                            "name": "fn",
+                            "type": "any"
+                        }
+                    ],
+                    "optional": false,
+                    "returnType": "void",
+                    "typeParameters": [],
+                    "line": 55,
+                    "jsdoctags": [
+                        {
+                            "name": "fn",
+                            "type": "any",
+                            "tagName": {
+                                "text": "param"
+                            }
+                        }
+                    ]
+                },
+                {
                     "name": "writeValue",
                     "args": [
                         {
@@ -606,7 +606,7 @@
                     "optional": false,
                     "returnType": "void",
                     "typeParameters": [],
-                    "line": 22,
+                    "line": 23,
                     "jsdoctags": [
                         {
                             "name": "value",
@@ -623,7 +623,7 @@
             "description": "",
             "rawdescription": "",
             "type": "component",
-            "sourceCode": "import { Component, forwardRef, OnInit } from '@angular/core';\nimport { ControlValueAccessor, NG_VALUE_ACCESSOR } from '@angular/forms';\n\n@Component({\n  selector: 'app-counter',\n  templateUrl: './counter.component.html',\n  styleUrls: ['./counter.component.scss'],\n  providers: [\n    {\n      provide: NG_VALUE_ACCESSOR,\n      useExisting: forwardRef(() => CounterComponent),\n      multi: true,\n    },\n  ],\n})\nexport class CounterComponent implements ControlValueAccessor {\n  value = 0;\n\n  onChange: null | ((value: number | null) => void) = null;\n  onTouched: null | (() => void) = null;\n\n  writeValue(value: number): void {\n    console.log('writeValue', value);\n    this.value = value;\n  }\n\n  plus(): void {\n    this.value++;\n    if (this.onChange) {\n      console.log('onChange plus', this.value);\n      this.onChange(this.value);\n    }\n    if (this.onTouched) {\n      this.onTouched();\n    }\n  }\n\n  minus(): void {\n    this.value--;\n    if (this.onChange) {\n      console.log('onChange minus', this.value);\n      this.onChange(this.value);\n    }\n    if (this.onTouched) {\n      this.onTouched();\n    }\n  }\n\n  registerOnChange(fn: any): void {\n    this.onChange = fn;\n  }\n  registerOnTouched(fn: any): void {\n    this.onTouched = fn;\n  }\n}\n",
+            "sourceCode": "import { Component, forwardRef, OnInit } from '@angular/core';\nimport { ControlValueAccessor, NG_VALUE_ACCESSOR } from '@angular/forms';\n\n@Component({ // *1\n  selector: 'app-counter',\n  templateUrl: './counter.component.html',\n  styleUrls: ['./counter.component.scss'],\n  providers: [ // *2\n    {\n      provide: NG_VALUE_ACCESSOR,\n      useExisting: forwardRef(() => CounterComponent), // forwardRef -> permite que o angular encontre o componente mesmo que ele ainda não tenha sido definido até esse momento\n      multi: true,\n    },\n  ],\n})\n\nexport class CounterComponent implements ControlValueAccessor { // *3\n  value = 0;\n\n  onChange: null | ((value: number | null) => void) = null;\n  onTouched: null | (() => void) = null;\n\n  writeValue(value: number): void { // *3.1\n    console.log('writeValue', value);\n    this.value = value;\n  }\n\n  plus(): void {\n    this.value++;\n    // 31 - 37 integração com o componente de formulário\n    if (this.onChange) {\n      console.log('onChange plus', this.value);\n      this.onChange(this.value);\n    }\n    if (this.onTouched) {\n      this.onTouched();\n    }\n  }\n\n  minus(): void {\n    this.value--;\n    // integração com o componente de formulário\n    if (this.onChange) {\n      console.log('onChange minus', this.value);\n      this.onChange(this.value);\n    }\n    if (this.onTouched) {\n      this.onTouched();\n    }\n  }\n\n  registerOnChange(fn: any): void {\n    this.onChange = fn;\n  }\n  registerOnTouched(fn: any): void {\n    this.onTouched = fn;\n  }\n  // recebem uma função de callback (OnChange e OnTouched) que são chamadas quando o componente sofre alteração ou interação do usuário.\n  // É feito dessa forma para as funções serem chamadas no momento certo, pois o componente não sabe quando o formulário precisa ser atualizado.\n}\n\n\n// 1. Componentes de Formulário -> são componentes que fazem sua comunicação com o mundo externo através de ngModel e diretivas de\n// formulário reativo (formControlName, formControl, formGroup, etc);\n\n// 2. NG_VALUE_ACCESSOR -> é uma constante que permite que o componente seja registrado como um componente de formulário.\n\n// 3. ControlValueAccessor -> é uma interface que permite que um componente se comporte como um componente de formulário. Precisa implementar\n// três métodos: writerValue, registerOnChange e registerOnTouched.\n// 3.1. writeValue -> para quando o formulário é alterado e o componente precisa refletir o novo valor;\n// 3.2. registerOnChange -> para quando o volor do componente é alterado e precisa notificar o formulário;\n// 3.3. registerOnTouched -> para quando o componente sofre interação do usuário e o angular poder aplicar as classes de acordo;\n\n// onChange -> é chamada dentro\n",
             "assetsDirs": [],
             "styleUrlsData": [
                 {
@@ -639,7 +639,7 @@
         },
         {
             "name": "CustomTemplateComponent",
-            "id": "component-CustomTemplateComponent-c366837329ce3acf8a4dab497e53e4d7",
+            "id": "component-CustomTemplateComponent-924aae10280ed93167c50399321aeacf",
             "file": "src/app/shared/components/custom-template/custom-template.component.ts",
             "changeDetection": "ChangeDetectionStrategy.OnPush",
             "encapsulation": [
@@ -661,29 +661,29 @@
             "inputsClass": [
                 {
                     "name": "subtitle",
-                    "line": 27,
+                    "line": 29,
                     "type": "string"
                 },
                 {
                     "name": "template",
                     "defaultValue": "null",
-                    "line": 30,
+                    "line": 32,
                     "type": "TemplateRef<TemplateContext> | null"
                 },
                 {
                     "name": "templateConteudo",
                     "defaultValue": "null",
-                    "line": 33,
+                    "line": 35,
                     "type": "TemplateRef<TemplateContext> | null"
                 },
                 {
                     "name": "textos",
-                    "line": 36,
+                    "line": 38,
                     "type": "string[]"
                 },
                 {
                     "name": "title",
-                    "line": 24,
+                    "line": 26,
                     "type": "string"
                 }
             ],
@@ -695,7 +695,7 @@
             "description": "",
             "rawdescription": "",
             "type": "component",
-            "sourceCode": "import {\n  Component,\n  ViewEncapsulation,\n  ChangeDetectionStrategy,\n  Input,\n  TemplateRef,\n} from '@angular/core';\n\nexport interface TemplateContext {\n  $implicit: string;\n  title: string;\n  subtitle: string;\n}\n\n@Component({\n  selector: 'app-custom-template',\n  templateUrl: './custom-template.component.html',\n  styleUrls: ['./custom-template.component.scss'],\n  encapsulation: ViewEncapsulation.Emulated,\n  changeDetection: ChangeDetectionStrategy.OnPush,\n})\nexport class CustomTemplateComponent {\n  @Input()\n  title!: string;\n\n  @Input()\n  subtitle!: string;\n\n  @Input()\n  template: TemplateRef<TemplateContext> | null = null;\n\n  @Input()\n  templateConteudo: TemplateRef<TemplateContext> | null = null;\n\n  @Input()\n  textos!: string[];\n}\n",
+            "sourceCode": "import {\n  Component,\n  ViewEncapsulation,\n  ChangeDetectionStrategy,\n  Input,\n  TemplateRef,\n} from '@angular/core';\n\nexport interface TemplateContext {\n  $implicit: string;\n  title: string;\n  subtitle: string;\n}\n\n@Component({\n  selector: 'app-custom-template',\n  templateUrl: './custom-template.component.html',\n  styleUrls: ['./custom-template.component.scss'],\n  encapsulation: ViewEncapsulation.Emulated,\n  changeDetection: ChangeDetectionStrategy.OnPush,\n})\n\n// Componente com vários inputs que vai renderizar dois componentes\nexport class CustomTemplateComponent {\n  @Input()\n  title!: string;\n\n  @Input()\n  subtitle!: string;\n\n  @Input()\n  template: TemplateRef<TemplateContext> | null = null;\n\n  @Input()\n  templateConteudo: TemplateRef<TemplateContext> | null = null;\n\n  @Input()\n  textos!: string[];\n}\n\n\n// Podemos usar a tag <ng-template> como uma forma de customizar o conteúdo de um componente. Precisa usar a diretiva templateOutlet\n",
             "assetsDirs": [],
             "styleUrlsData": [
                 {
@@ -822,7 +822,7 @@
         },
         {
             "name": "NgContentSelectComponent",
-            "id": "component-NgContentSelectComponent-bbcd4e970428a784249dbced02ddf5e2",
+            "id": "component-NgContentSelectComponent-24c76bd1ecf9c8bf84a13014e86c3c18",
             "file": "src/app/shared/components/ng-content-select/ng-content-select.component.ts",
             "changeDetection": "ChangeDetectionStrategy.OnPush",
             "encapsulation": [
@@ -863,7 +863,7 @@
             "description": "",
             "rawdescription": "",
             "type": "component",
-            "sourceCode": "import {\n  Component,\n  ViewEncapsulation,\n  ChangeDetectionStrategy,\n  ContentChild,\n} from '@angular/core';\nimport { PureComponentComponent } from '../pure-component/pure-component.component';\n\n@Component({\n  selector: 'app-ng-content-select',\n  template: `\n    <div class=\"top-left\">\n      <ng-content select=\"[top-left]\"></ng-content>\n    </div>\n    <div class=\"top-right\">\n      <ng-content select=\"[top-right]\"></ng-content>\n    </div>\n    <div class=\"bottom-left\">\n      <ng-content select=\"[bottom-left]\"></ng-content>\n    </div>\n    <div class=\"bottom-right\">\n      <ng-content select=\"h1\"></ng-content>\n    </div>\n  `,\n  styleUrls: ['./ng-content-select.component.scss'],\n  encapsulation: ViewEncapsulation.Emulated,\n  changeDetection: ChangeDetectionStrategy.OnPush,\n})\nexport class NgContentSelectComponent {\n  @ContentChild(PureComponentComponent)\n  pureComponent!: PureComponentComponent;\n}\n",
+            "sourceCode": "import {\n  Component,\n  ViewEncapsulation,\n  ChangeDetectionStrategy,\n  ContentChild,\n} from '@angular/core';\nimport { PureComponentComponent } from '../pure-component/pure-component.component';\n\n@Component({\n  selector: 'app-ng-content-select',\n  template: `\n    <div class=\"top-left\">\n      <ng-content select=\"[top-left]\"></ng-content>\n    </div>\n    <div class=\"top-right\">\n      <ng-content select=\"[top-right]\"></ng-content>\n    </div>\n    <div class=\"bottom-left\">\n      <ng-content select=\"[bottom-left]\"></ng-content>\n    </div>\n    <div class=\"bottom-right\">\n      <ng-content select=\"h1\"></ng-content>\n    </div>\n  `,\n  styleUrls: ['./ng-content-select.component.scss'],\n  encapsulation: ViewEncapsulation.Emulated,\n  changeDetection: ChangeDetectionStrategy.OnPush,\n})\nexport class NgContentSelectComponent {\n  @ContentChild(PureComponentComponent)\n  pureComponent!: PureComponentComponent;\n}\n\n// <ng-content select=\"[top-left]\"> -> tem um selector que vai selecionar o conteúdo que tem o atributo top-left\n// ele seleciona o contéúdo lá no story\n\n// Conseguimos segmentar o conteúdo que queremos projetar dentro do componente. (conteúdo no story)\n",
             "assetsDirs": [],
             "styleUrlsData": [
                 {
@@ -875,7 +875,7 @@
         },
         {
             "name": "NgContentSimpleComponent",
-            "id": "component-NgContentSimpleComponent-e0dc8a2682eaa24e2c8b9b02564bb4eb",
+            "id": "component-NgContentSimpleComponent-58b8774f4ac337266d3f1d7b278f2b29",
             "file": "src/app/shared/components/ng-content-simple/ng-content-simple.component.ts",
             "changeDetection": "ChangeDetectionStrategy.OnPush",
             "encapsulation": [
@@ -925,7 +925,7 @@
             "description": "",
             "rawdescription": "",
             "type": "component",
-            "sourceCode": "import {\n  Component,\n  ViewEncapsulation,\n  ChangeDetectionStrategy,\n  ContentChild,\n  AfterContentInit,\n  ContentChildren,\n  QueryList,\n} from '@angular/core';\nimport { PureComponentComponent } from '../pure-component/pure-component.component';\n\n@Component({\n  selector: 'app-ng-content-simple',\n  template: `\n    <div>ng-content-simple works!</div>\n    <ng-content></ng-content>\n  `,\n  styleUrls: ['./ng-content-simple.component.scss'],\n  encapsulation: ViewEncapsulation.Emulated,\n  changeDetection: ChangeDetectionStrategy.OnPush,\n})\nexport class NgContentSimpleComponent implements AfterContentInit {\n  @ContentChildren(PureComponentComponent)\n  pureComponent: QueryList<PureComponentComponent> | undefined;\n\n  ngAfterContentInit(): void {\n    console.log(this.pureComponent);\n  }\n}\n",
+            "sourceCode": "import {\n  Component,\n  ViewEncapsulation,\n  ChangeDetectionStrategy,\n  ContentChild,\n  AfterContentInit,\n  ContentChildren,\n  QueryList,\n} from '@angular/core';\nimport { PureComponentComponent } from '../pure-component/pure-component.component';\n\n@Component({\n  selector: 'app-ng-content-simple',\n  template: `\n    <div>ng-content-simple works!</div>\n    <ng-content></ng-content>\n  `, // *1\n  styleUrls: ['./ng-content-simple.component.scss'],\n  encapsulation: ViewEncapsulation.Emulated,\n  changeDetection: ChangeDetectionStrategy.OnPush,\n})\nexport class NgContentSimpleComponent implements AfterContentInit { // *2\n  @ContentChildren(PureComponentComponent) // *3\n  pureComponent: QueryList<PureComponentComponent> | undefined;\n\n  ngAfterContentInit(): void {\n    console.log(this.pureComponent);\n  }\n}\n\n\n// podemos projetar conteúdo dentro de um outro componente sem que esse componente tenha relação direta com o que ele vai renderizar.\n\n// 1. ng-content -> é uma diretiva do angular que serve para projetar conteúdo dentro de um componente. (facilita a composição de componentes)\n// Nesse caso, vai renderizar o conteúdo que se encontra dentro do story\n\n// 2. AfterContentInit -> é um hook do angular que é executado depois que o conteúdo do componente é inicializado.\n\n// 3. @ContentChildren -> é usado pra pegar componentes filhos que são encontrados dentro do ng-content.\n",
             "assetsDirs": [],
             "styleUrlsData": [
                 {
@@ -940,7 +940,7 @@
         },
         {
             "name": "ParentComponent",
-            "id": "component-ParentComponent-13bb51301f07a9fab3eff95893b1aa4a",
+            "id": "component-ParentComponent-b370e41f932a3dda3ecc613a21552ee3",
             "file": "src/app/shared/components/parent-child/parent/parent.component.ts",
             "encapsulation": [],
             "entryComponents": [],
@@ -978,7 +978,7 @@
                     "type": "number[]",
                     "optional": false,
                     "description": "",
-                    "line": 19
+                    "line": 21
                 }
             ],
             "methodsClass": [
@@ -988,7 +988,7 @@
                     "optional": false,
                     "returnType": "void",
                     "typeParameters": [],
-                    "line": 35
+                    "line": 37
                 },
                 {
                     "name": "chamarFilho",
@@ -996,7 +996,7 @@
                     "optional": false,
                     "returnType": "void",
                     "typeParameters": [],
-                    "line": 29
+                    "line": 31
                 },
                 {
                     "name": "ngAfterViewInit",
@@ -1004,7 +1004,7 @@
                     "optional": false,
                     "returnType": "void",
                     "typeParameters": [],
-                    "line": 25
+                    "line": 27
                 }
             ],
             "hostBindings": [],
@@ -1012,7 +1012,7 @@
             "description": "",
             "rawdescription": "",
             "type": "component",
-            "sourceCode": "import {\n  AfterViewInit,\n  Component,\n  QueryList,\n  ViewChild,\n  ViewChildren,\n} from '@angular/core';\nimport { ChildComponent } from '../child/child.component';\n\n@Component({\n  selector: 'app-parent',\n  templateUrl: './parent.component.html',\n  styleUrls: ['./parent.component.scss'],\n})\nexport class ParentComponent implements AfterViewInit {\n  @ViewChildren(ChildComponent)\n  componentesFilho!: QueryList<ChildComponent>;\n\n  filhos: number[] = [1];\n\n  constructor() {\n    console.log('construtor:', this.componentesFilho);\n  }\n\n  ngAfterViewInit(): void {\n    console.log(this.componentesFilho);\n  }\n\n  chamarFilho() {\n    this.componentesFilho.forEach((component) => {\n      component.incrementar();\n    });\n  }\n\n  adicionarFilho() {\n    this.filhos.push(this.filhos.length + 1);\n  }\n}\n",
+            "sourceCode": "import {\n  AfterViewInit,\n  Component,\n  QueryList,\n  ViewChild, // serve para pegar um elemento filho (referencia o próprio template do componente filho)\n  ViewChildren, // serve para pegar vários elementos filhos\n} from '@angular/core';\nimport { ChildComponent } from '../child/child.component';\n\n@Component({\n  selector: 'app-parent',\n  templateUrl: './parent.component.html',\n  styleUrls: ['./parent.component.scss'],\n})\nexport class ParentComponent implements AfterViewInit { // *1\n  @ViewChildren(ChildComponent) // pega todos os elementos filhos do tipo ChildComponent\n  componentesFilho!: QueryList<ChildComponent>;\n  // QueryList -> é uma classe do angular que representa uma lista de elementos. Ela é uma classe genérica que permite\n  // definir o tipo de elemento que ela vai conter. No geral é utilizada como um array iterável.\n\n  filhos: number[] = [1];\n\n  constructor() {\n    console.log('construtor:', this.componentesFilho);\n  }\n\n  ngAfterViewInit(): void {\n    console.log(this.componentesFilho);\n  }\n\n  chamarFilho() {\n    this.componentesFilho.forEach((component) => {\n      component.incrementar();\n    });\n  }\n\n  adicionarFilho() {\n    this.filhos.push(this.filhos.length + 1);\n  }\n}\n\n\n// 1. AfterViewInit -> é um lifecycle hook que é chamado depois que a view do componente é inicializada. Serve para possibilitar o\n// uso do @ViewChild e @ViewChildren, pois esses decorators só podem ser usados depois que a view do componente é inicializada.\n\n// caso fosse apenas um componente filho seria:\n\n// @ViewChild(ChildComponent)\n//  componenteFilho!: ChildComponent;\n\n// chamarFilho() {\n//   this.componenteFilho.incrementar();\n// }\n",
             "assetsDirs": [],
             "styleUrlsData": [
                 {
@@ -1025,7 +1025,7 @@
                 "name": "constructor",
                 "description": "",
                 "args": [],
-                "line": 19
+                "line": 21
             },
             "implements": [
                 "AfterViewInit"
@@ -1087,10 +1087,12 @@
         },
         {
             "name": "PureComponentComponent",
-            "id": "component-PureComponentComponent-12f895605f237ab307f094bf2599136f",
+            "id": "component-PureComponentComponent-e8cca5ae27d05457c5b4b8dabbe15f72",
             "file": "src/app/shared/components/pure-component/pure-component.component.ts",
             "changeDetection": "ChangeDetectionStrategy.OnPush",
-            "encapsulation": [],
+            "encapsulation": [
+                "ViewEncapsulation.Emulated"
+            ],
             "entryComponents": [],
             "inputs": [],
             "outputs": [],
@@ -1107,14 +1109,14 @@
                 {
                     "name": "open",
                     "defaultValue": "false",
-                    "line": 24
+                    "line": 27
                 }
             ],
             "outputsClass": [
                 {
                     "name": "buttonClicked",
                     "defaultValue": "new EventEmitter<number>()",
-                    "line": 29,
+                    "line": 32,
                     "type": "EventEmitter"
                 }
             ],
@@ -1125,7 +1127,7 @@
                     "type": "number",
                     "optional": false,
                     "description": "",
-                    "line": 26
+                    "line": 29
                 }
             ],
             "methodsClass": [
@@ -1135,7 +1137,7 @@
                     "optional": false,
                     "returnType": "void",
                     "typeParameters": [],
-                    "line": 33
+                    "line": 36
                 },
                 {
                     "name": "triggerOutput",
@@ -1143,7 +1145,7 @@
                     "optional": false,
                     "returnType": "void",
                     "typeParameters": [],
-                    "line": 40
+                    "line": 45
                 }
             ],
             "hostBindings": [],
@@ -1151,7 +1153,7 @@
             "description": "",
             "rawdescription": "",
             "type": "component",
-            "sourceCode": "import {\n  Component,\n  OnInit,\n  ChangeDetectionStrategy,\n  Input,\n  Output,\n  EventEmitter,\n  ChangeDetectorRef,\n} from '@angular/core';\n\n@Component({\n  selector: 'app-pure-component',\n  template: `\n    <div>open: {{ open }}</div>\n    <div>count: {{ count }}</div>\n\n    <button (click)=\"triggerOutput()\">Trigger output</button>\n  `,\n  styleUrls: ['./pure-component.component.scss'],\n  changeDetection: ChangeDetectionStrategy.OnPush,\n})\nexport class PureComponentComponent implements OnInit {\n  @Input()\n  open = false;\n\n  count = 0;\n\n  @Output()\n  buttonClicked = new EventEmitter<number>();\n\n  constructor(private changeDetectorRef: ChangeDetectorRef) {}\n\n  ngOnInit(): void {\n    setInterval(() => {\n      this.count += 1;\n      this.changeDetectorRef.markForCheck();\n    }, 100);\n  }\n\n  triggerOutput(): void {\n    this.buttonClicked.emit(this.count);\n  }\n}\n",
+            "sourceCode": "import {\n  Component,\n  OnInit,\n  ChangeDetectionStrategy,\n  Input,\n  Output,\n  EventEmitter,\n  ChangeDetectorRef,\n  ViewEncapsulation,\n} from '@angular/core';\n\n// Pure component (também conhecido como Dumb Component, pq não tem nenhuma regra de negócio) *1\n@Component({\n  selector: 'app-pure-component',\n  template: `\n    <div>open: {{ open }}</div>\n    <div>count: {{ count }}</div>\n\n    <button (click)=\"triggerOutput()\">Trigger output</button>\n  `,\n  styleUrls: ['./pure-component.component.scss'],\n  changeDetection: ChangeDetectionStrategy.OnPush, // *2\n  encapsulation: ViewEncapsulation.Emulated // *3\n})\nexport class PureComponentComponent implements OnInit {\n  @Input()\n  open = false;\n\n  count = 0;\n\n  @Output()\n  buttonClicked = new EventEmitter<number>();\n\n  constructor(private changeDetectorRef: ChangeDetectorRef) {} // *4\n\n  ngOnInit(): void {\n    setInterval(() => {\n      this.count += 1;\n      this.changeDetectorRef.markForCheck(); // Linha 39\n    }, 100);\n  }\n\n  // se a linha 39 for comentadada, o componente não será renderizado e só será renderizado quando o botão for clicado\n\n  triggerOutput(): void {\n    this.buttonClicked.emit(this.count);\n  }\n}\n\n\n// 1. Componentes Puros -> são componentes que fazem sua comunicação com o mundo externo através de @Input e @Output;\n\n// 2. ChangeDetectionStrategy.OnPush -> faz com que o componente SÓ seja renderizado quando houver mudança no @Input ou ele emitir um @Output.\n// Evita que o angular fique verificando o estado do componente a todo momento, o que pode ser custoso em termos de performance;\n\n// 3. ViewEncapsulation.None (É o padrão) -> é o encapsulamento que faz com que o css do componente seja global, ou seja, qualquer componente pode usar o css desse componente.\n// 3. ViewEncapsulation.Emulated -> é o encapsulamento padrão do angular, que faz com que o css do componente não vaze para fora dele (não possa ser usado por outros componentes).\n// 3. ViewEncapsulation.ShadowDom -> é o encapsulamento que faz com que o css do componente seja encapsulado em uma shadow root, que é uma árvore de elementos que fica separada da\n// árvore principal do DOM. Não é muito usado, é melhor usar o Emulated.\n\n// 4. ChangeDetectorRef -> é uma classe que permite que você controle o ciclo de vida do componente, como por exemplo, forçar a renderização do componente.\n// No caso da linha 39, estamos usando o método markForCheck() que força a renderização do componente;;\n",
             "assetsDirs": [],
             "styleUrlsData": [
                 {
@@ -1169,7 +1171,7 @@
                         "type": "ChangeDetectorRef"
                     }
                 ],
-                "line": 29,
+                "line": 32,
                 "jsdoctags": [
                     {
                         "name": "changeDetectorRef",
@@ -1454,7 +1456,7 @@
                 "name": "Basic",
                 "ctype": "miscellaneous",
                 "subtype": "variable",
-                "file": "src/app/shared/components/ng-content-simple/ng-content-simple.stories.ts",
+                "file": "src/app/shared/components/recursive/recursive.stories.ts",
                 "type": "",
                 "defaultValue": "Template.bind({})"
             },
@@ -1478,7 +1480,7 @@
                 "name": "Basic",
                 "ctype": "miscellaneous",
                 "subtype": "variable",
-                "file": "src/app/shared/components/recursive/recursive.stories.ts",
+                "file": "src/app/shared/components/ng-content-simple/ng-content-simple.stories.ts",
                 "type": "",
                 "defaultValue": "Template.bind({})"
             },
@@ -1629,9 +1631,9 @@
                 "name": "Template",
                 "ctype": "miscellaneous",
                 "subtype": "variable",
-                "file": "src/app/shared/components/ng-content-simple/ng-content-simple.stories.ts",
-                "type": "Story<NgContentSimpleComponent>",
-                "defaultValue": "(\n  args: NgContentSimpleComponent\n) => ({\n  props: args,\n  moduleMetadata: {\n    imports: [SharedModule],\n  },\n  template: `\n<app-ng-content-simple>\n    <h1>My content</h1>\n    <app-pure-component></app-pure-component>\n</app-ng-content-simple>\n`,\n})"
+                "file": "src/app/shared/components/recursive/recursive.stories.ts",
+                "type": "Story<RecursiveComponent>",
+                "defaultValue": "(args: RecursiveComponent) => ({\n  props: args,\n  moduleMetadata: {\n    imports: [SharedModule],\n  },\n  template: `\n  <app-recursive [node]=\"node\">\n  </app-recursive>\n`,\n})"
             },
             {
                 "name": "Template",
@@ -1653,9 +1655,9 @@
                 "name": "Template",
                 "ctype": "miscellaneous",
                 "subtype": "variable",
-                "file": "src/app/shared/components/recursive/recursive.stories.ts",
-                "type": "Story<RecursiveComponent>",
-                "defaultValue": "(args: RecursiveComponent) => ({\n  props: args,\n  moduleMetadata: {\n    imports: [SharedModule],\n  },\n  template: `\n  <app-recursive [node]=\"node\">\n  </app-recursive>\n`,\n})"
+                "file": "src/app/shared/components/ng-content-simple/ng-content-simple.stories.ts",
+                "type": "Story<NgContentSimpleComponent>",
+                "defaultValue": "(\n  args: NgContentSimpleComponent\n) => ({\n  props: args,\n  moduleMetadata: {\n    imports: [SharedModule],\n  },\n  template: `\n  <app-ng-content-simple>\n      <h1>My content</h1>\n      <app-pure-component></app-pure-component>\n  </app-ng-content-simple>\n  `,\n})"
             },
             {
                 "name": "Template",
@@ -1837,22 +1839,30 @@
                     "defaultValue": "(\n  args: NgContentSelectComponent\n) => ({\n  props: args,\n  moduleMetadata: {\n    imports: [SharedModule],\n  },\n  template: `\n<app-ng-content-select>\n  <div top-left>TOP LEFT</div>\n  <div top-right>TOP RIGHT</div>\n  <div bottom-left>BOTTOM LEFT</div>\n  <h1>Teste </h1>\n</app-ng-content-select>\n`,\n})"
                 }
             ],
-            "src/app/shared/components/ng-content-simple/ng-content-simple.stories.ts": [
+            "src/app/shared/components/recursive/recursive.stories.ts": [
                 {
                     "name": "Basic",
                     "ctype": "miscellaneous",
                     "subtype": "variable",
-                    "file": "src/app/shared/components/ng-content-simple/ng-content-simple.stories.ts",
+                    "file": "src/app/shared/components/recursive/recursive.stories.ts",
                     "type": "",
                     "defaultValue": "Template.bind({})"
+                },
+                {
+                    "name": "node",
+                    "ctype": "miscellaneous",
+                    "subtype": "variable",
+                    "file": "src/app/shared/components/recursive/recursive.stories.ts",
+                    "type": "Node",
+                    "defaultValue": "{\n  id: '1',\n  children: [\n    {\n      id: '2',\n      children: [\n        {\n          id: '3',\n          children: [\n            {\n              id: '4',\n              children: [],\n            },\n          ],\n        },\n      ],\n    },\n    {\n      id: '5',\n      children: [\n        {\n          id: '6',\n          children: [],\n        },\n      ],\n    },\n  ],\n}"
                 },
                 {
                     "name": "Template",
                     "ctype": "miscellaneous",
                     "subtype": "variable",
-                    "file": "src/app/shared/components/ng-content-simple/ng-content-simple.stories.ts",
-                    "type": "Story<NgContentSimpleComponent>",
-                    "defaultValue": "(\n  args: NgContentSimpleComponent\n) => ({\n  props: args,\n  moduleMetadata: {\n    imports: [SharedModule],\n  },\n  template: `\n<app-ng-content-simple>\n    <h1>My content</h1>\n    <app-pure-component></app-pure-component>\n</app-ng-content-simple>\n`,\n})"
+                    "file": "src/app/shared/components/recursive/recursive.stories.ts",
+                    "type": "Story<RecursiveComponent>",
+                    "defaultValue": "(args: RecursiveComponent) => ({\n  props: args,\n  moduleMetadata: {\n    imports: [SharedModule],\n  },\n  template: `\n  <app-recursive [node]=\"node\">\n  </app-recursive>\n`,\n})"
                 }
             ],
             "src/app/shared/components/post/post.stories.ts": [
@@ -1899,30 +1909,22 @@
                     "defaultValue": "(\n  args: PureComponentComponent\n) => ({\n  props: args,\n  moduleMetadata: {\n    imports: [SharedModule],\n  },\n})"
                 }
             ],
-            "src/app/shared/components/recursive/recursive.stories.ts": [
+            "src/app/shared/components/ng-content-simple/ng-content-simple.stories.ts": [
                 {
                     "name": "Basic",
                     "ctype": "miscellaneous",
                     "subtype": "variable",
-                    "file": "src/app/shared/components/recursive/recursive.stories.ts",
+                    "file": "src/app/shared/components/ng-content-simple/ng-content-simple.stories.ts",
                     "type": "",
                     "defaultValue": "Template.bind({})"
-                },
-                {
-                    "name": "node",
-                    "ctype": "miscellaneous",
-                    "subtype": "variable",
-                    "file": "src/app/shared/components/recursive/recursive.stories.ts",
-                    "type": "Node",
-                    "defaultValue": "{\n  id: '1',\n  children: [\n    {\n      id: '2',\n      children: [\n        {\n          id: '3',\n          children: [\n            {\n              id: '4',\n              children: [],\n            },\n          ],\n        },\n      ],\n    },\n    {\n      id: '5',\n      children: [\n        {\n          id: '6',\n          children: [],\n        },\n      ],\n    },\n  ],\n}"
                 },
                 {
                     "name": "Template",
                     "ctype": "miscellaneous",
                     "subtype": "variable",
-                    "file": "src/app/shared/components/recursive/recursive.stories.ts",
-                    "type": "Story<RecursiveComponent>",
-                    "defaultValue": "(args: RecursiveComponent) => ({\n  props: args,\n  moduleMetadata: {\n    imports: [SharedModule],\n  },\n  template: `\n  <app-recursive [node]=\"node\">\n  </app-recursive>\n`,\n})"
+                    "file": "src/app/shared/components/ng-content-simple/ng-content-simple.stories.ts",
+                    "type": "Story<NgContentSimpleComponent>",
+                    "defaultValue": "(\n  args: NgContentSimpleComponent\n) => ({\n  props: args,\n  moduleMetadata: {\n    imports: [SharedModule],\n  },\n  template: `\n  <app-ng-content-simple>\n      <h1>My content</h1>\n      <app-pure-component></app-pure-component>\n  </app-ng-content-simple>\n  `,\n})"
                 }
             ],
             "src/app/shared/components/configurable/configurable/configurable.stories.ts": [

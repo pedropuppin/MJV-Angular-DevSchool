@@ -1,9 +1,12 @@
+<!-- "template || defaultTemplate" é uma operação de fallback para caso o @Input do template lá no component.ts for nulo -->
 <ng-container *ngTemplateOutlet="template || defaultTemplate;
 context: {
   title: title,
   subtitle: subtitle,
   $implicit: title
 }"></ng-container>
+<!-- o "$implicit: title" faz com que seja possível omitir a igualdade em "let-default" (poderia ser qualquer nome na variável,
+  o default é definido só pela falta da igualdade "let-qualquercoisa") -->
 
 <div>
   <ng-container *ngFor="let texto of textos">
@@ -14,18 +17,20 @@ context: {
   </ng-container>
 </div>
 
-
-<ng-template #defaultTemplate
-             let-default
-             let-titulo="title"
-             let-subtitulo="subtitle">
+<!-- aqui usamos o "ng-template" paradefinir a variáver "#defaultTemplate" dentro do componente -->
+<!-- as variávei: let-default let-titulo="title" let-subtitulo="subtitle, partem lá do "context" na linha 3-->
+<ng-template #defaultTemplate let-default let-titulo="title" let-subtitulo="subtitle">
   <h1>{{titulo}}</h1>
   <div>{{subtitulo}}</div>
-
   <div>{{default}}</div>
 </ng-template>
 
-<ng-template #defaultTemplateTexto
-             let-item>
+<ng-template #defaultTemplateTexto let-item>
   <h6>{{item}}</h6>
 </ng-template>
+
+
+<!-- <ng-container> é uma tag especial do angular que serve pra gente não renderizar nenhuma tag. No exempo do loop no "*ngFor", por exemplo,
+  ela foi usada pq só nos interessa cria o loop da repetição e não renderizar uma <div> a mais-->
+
+<!-- Podemos usar a tag <ng-template> como uma forma de customizar o conteúdo de um componente. Precisa usar a diretiva "*ngTemplateOutlet" -->
