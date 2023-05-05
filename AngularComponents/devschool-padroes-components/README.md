@@ -1,3 +1,10 @@
+# Sobre o Storybook
+
+É uma ferramenta para desenvolvimento UI. Ela torna o desenvolvimento mais rápido e fácil ao isolar componentes.
+Isso permite trabalhar em um componente por vez.
+
+Para instalar no projeto, rodamos `npx sb init`
+
 # Instruções
 
 Instalar dependências com `npm install`
