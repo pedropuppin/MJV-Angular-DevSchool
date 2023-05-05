@@ -30,3 +30,7 @@ Rodar projeto com `npm run storybook`
 7) Configurable Templates -> src/app/shared/components/configurable/configurable
 
 8) Dynamic Components -> src/app/shared/components/dynamic
+
+9) Mixin Components -> src/app/shared/components/post
+
+10) Recursive Components -> src/app/shared/components/recursive

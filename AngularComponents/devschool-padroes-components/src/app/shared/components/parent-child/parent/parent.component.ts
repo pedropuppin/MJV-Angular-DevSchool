@@ -13,7 +13,7 @@ import { ChildComponent } from '../child/child.component';
   styleUrls: ['./parent.component.scss'],
 })
 export class ParentComponent implements AfterViewInit { // *1
-  @ViewChildren(ChildComponent) // pega todos os elementos filhos do tipo ChildComponent
+  @ViewChildren(ChildComponent) // pega todos os elementos filhos do tipo ChildComponent em child.component.ts
   componentesFilho!: QueryList<ChildComponent>;
   // QueryList -> é uma classe do angular que representa uma lista de elementos. Ela é uma classe genérica que permite
   // definir o tipo de elemento que ela vai conter. No geral é utilizada como um array iterável.

@@ -21,3 +21,5 @@ export class RecursiveComponent {
   @Input()
   node!: Node;
 }
+
+// São comoponentes que renderizam a si mesmos no próprio template.
