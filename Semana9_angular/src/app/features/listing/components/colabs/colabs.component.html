@@ -1,0 +1,50 @@
+<!-- diretivas são compostas por classes do TS -->
+<!-- Pipes são uma maneira elegante de realizarmos transformações de texto em nosso front-end. Só funcionam com  valores em STRING ou NUMBER
+Para fazer a configuração dos pipes para o padrão BR precisamos importar algumas coisas no app.module.ts, com as configs feitas o padrão agora é o BR.
+Outros tipos de pipes em -> https://angular.io/guide/pipes -->
+
+
+<h3>Data de hoje: {{dataHoje | date: 	'medium'}}</h3>
+<button mat-flat-button color="primary" (click)="toggleColab()">Ocultar colaboradores</button>
+<hr>
+<div class="container" *ngIf="showColab">
+  <div class="card" *ngFor="let colaborator of colaborators">
+    <div class="card-description">
+      <h3>Nome: {{colaborator.name}}</h3>
+      <h4>Cargo: {{colaborator.ocupation}}</h4>
+      <button class="actions details" (click)="detailsColab(colaborator.id)">Ver mais</button>
+    </div>
+  </div>
+  <mat-spinner mode="indeterminate"></mat-spinner>
+</div>
+<hr>
+<!-- Botão criado usando o angular material importação feita no "listing.module.ts" -->
+<button mat-flat-button color="primary" (click)="navigateByUrl('create-colaborator')">Adicionar colaborador</button>
+
+<!-- Exemplo de Card angular material -->
+<mat-card class="example-card">
+  <mat-card-header>
+    <mat-card-title-group>
+      <mat-card-title>Shiba Inu</mat-card-title>
+      <mat-card-subtitle>Small</mat-card-subtitle>
+      <img mat-card-sm-image src="https://material.angular.io/assets/img/examples/shiba2.jpg" >
+    </mat-card-title-group>
+  </mat-card-header>
+  <mat-card-content>
+    {{longText}}
+  </mat-card-content>
+</mat-card>
+
+<br>
+
+<section class="example-section" [formGroup]="toppings">
+  <h4>Select your toppings:</h4>
+  <p><mat-checkbox formControlName="pepperoni">Pepperoni</mat-checkbox></p>
+  <p><mat-checkbox formControlName="extracheese">Extra Cheese</mat-checkbox></p>
+  <p><mat-checkbox formControlName="mushroom">Mushroom</mat-checkbox></p>
+</section>
+
+<section class="example-section" [formGroup]="toppings">
+  <h4>You chose:</h4>
+  {{toppings.value | json}}
+</section>
