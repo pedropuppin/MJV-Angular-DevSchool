@@ -6,7 +6,7 @@
 
 1) Primeira semana -> criar o primeiro projeto / arquivos e pastas
 2) Segunda e Terceira semana -> componentes, módulos e data-binding / event-binding
-3) Quarta semana -> Diretivas e 
+3) Quarta semana -> Diretivas
 4) Quinta semana -> Pipes, Routing e TS_Avançado
 5) Sexta semana -> Services e RxJs
 6) Setima semana -> Template-driven (users / login / ngModel) e RxJs
