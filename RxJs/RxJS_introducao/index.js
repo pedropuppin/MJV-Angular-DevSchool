@@ -164,3 +164,44 @@ const observer = {
 }
 
 observable.subscribe(observer);
+
+
+/////////////////////////////////////////////////////////////////////////////////////////
+/////////// ** Operators mais comuns (diagramas em https://rxmarbles.com/) ** ///////////
+
+
+// map -> Aplica uma função de projeção a cada valor emitido pelo Observable de origem e emite os valores resultantes
+//        como um novo Observable.
+
+
+// switchMap -> Mapeia cada valor do Observable de origem para um novo Observable que é mesclado no Observable de saída,
+//              emitindo valores somente do Observable mais recentemente projetado.
+
+
+// concatMap -> Projeta cada valor de origem em um Observable que é mesclado no Observable de saída, de forma serializada,
+//              esperando cada um terminar antes de mesclar o próximo.
+
+
+// combineLatest -> Combina múltiplos Observables para criar um Observable cujos valores são calculados a partir dos últimos
+//                  valores de cada um dos seus Observables de entrada
+
+
+// filter -> Filtrar os itens emitidos pelo Observable fonte, emitindo apenas aqueles que satisfazem um predicado especificado.
+
+
+// tap -> Usado para realizar efeitos colaterais para notificações do observable de origem.
+
+
+// startWith -> Retorna um observable que, no momento da inscrição, emitirá de forma síncrona todos os valores fornecidos para este operador,
+//              em seguida, se inscreverá na fonte e espelhará todas as suas emissões para os assinantes.
+
+
+// distinctUntilChanged -> Retorna um Observable resultado que emite todos os valores emitidos pelo Observable de origem,
+//                         se eles forem distintos em comparação com o último valor que o Observable resultado emitiu.
+
+
+// debounceTime -> Emite uma notificação do Observable de origem somente após um determinado intervalo de tempo ter passado
+//                 sem outra emissão do Observable de origem.
+
+
+// catchError -> Captura erros em um observable para serem tratados retornando um novo observable ou lançando um erro.
