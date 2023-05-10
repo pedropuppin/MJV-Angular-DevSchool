@@ -1,4 +1,4 @@
-import { Component, OnInit, ChangeDetectionStrategy, Input, Output, EventEmitter, HostBinding } from '@angular/core';
+import { Component, ChangeDetectionStrategy, Input, Output, EventEmitter, HostBinding } from '@angular/core';
 import { Todo, TodoListItem } from 'src/app/shared/types/todo.type';
 
 @Component({
@@ -7,11 +7,15 @@ import { Todo, TodoListItem } from 'src/app/shared/types/todo.type';
   styleUrls: ['./todo-item.component.scss'],
   changeDetection: ChangeDetectionStrategy.OnPush
 })
-export class TodoItemComponent implements OnInit {
+
+// É um componente puro responsável por renderizar cada item dos 'todos'
+
+export class TodoItemComponent {
 
   @Input()
-  todo!: TodoListItem;
+  todo!: TodoListItem; // recebe um 'todo' do componente pai
 
+  // Os outputs são os eventos disparados pelos botões de cada item dos 'todos'
   @Output()
   toggleStatus = new EventEmitter<Todo>();
 
@@ -20,11 +24,6 @@ export class TodoItemComponent implements OnInit {
 
   @Output()
   delete = new EventEmitter<Todo>();
-
-  constructor() { }
-
-  ngOnInit(): void {
-  }
 
   onToggleClicked() {
     this.toggleStatus.emit(this.todo);

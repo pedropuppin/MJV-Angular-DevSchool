@@ -3,10 +3,7 @@ import { RouterModule, Routes } from '@angular/router';
 import { TodosPageComponent } from './pages/todos-page/todos-page.component';
 
 const routes: Routes = [
-  {
-    path: '',
-    component: TodosPageComponent
-  }
+  { path: '', component: TodosPageComponent }, // rota lazy loaded
 ];
 
 @NgModule({

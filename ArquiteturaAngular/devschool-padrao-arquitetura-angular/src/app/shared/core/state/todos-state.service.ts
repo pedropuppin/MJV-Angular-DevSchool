@@ -21,13 +21,21 @@ export interface TodosState {
 @Injectable({
   providedIn: 'root'
 })
+
 export class TodosStateService {
 
   /**
-   * Estado principal representado por um BehaviorSubject, que tem o conceito de "valor atual"
-   */
-  private state$ = new BehaviorSubject<TodosState>({ // BehaviorSubject é um Observable multicasted que guarda o valor atual
-    // o valor atual tem que ser passado logo na inicialização
+   Estado principal representado por um BehaviorSubject, que tem o conceito de "valor atual"
+
+   BehaviorSubject --> é um tipo de Observable do RxJS que armazena o valor atual e o emite para seus assinantes sempre
+   que uma nova assinatura é feita. Ele é útil para casos em que você precisa armazenar e acessar o estado atual de um
+   objeto ao longo do tempo.
+   Quando você cria um BehaviorSubject, você deve inicializá-lo com um valor padrão. Esse valor será o valor inicial
+   emitido para todos os novos assinantes. Em seguida, você pode atualizar o valor do BehaviorSubject usando o método next().
+   Todas as novas assinaturas recebem o valor mais recente do BehaviorSubject, mesmo que seja alterado após a assinatura.
+
+  */
+  private state$ = new BehaviorSubject<TodosState>({ // inicializando o BehaviorSubject com o valor inicial do estado da aplicação
     loaded: false,
     loading: false,
     todos: [],
@@ -38,8 +46,6 @@ export class TodosStateService {
     },
     todosBeingSaved: {},
   });
-
-  constructor() { }
 
   /**
    * Utilizamos essa função para expor o estado como um Observable,
@@ -56,18 +62,21 @@ export class TodosStateService {
    ... spread para copiar o estado antigo e alterar somente o que for necessário
 */
 
-  setTodos(todos: Todo[]) {
-    this.state$.next({
-      ...this.state$.getValue(),
-      todos: todos,
+  setTodos(todos: Todo[]) { // setTodos recebe um array de objetos do tipo Todo
+    this.state$.next({ // chama o método next do objeto state$, que é um BehaviorSubject, para emitir um novo valor com as atualizações
+      ...this.state$.getValue(), // utilização do operador spread (...) para criar uma nova cópia do objeto atual "this.state$.getValue()"
+      todos: todos // sobrescrever a propriedade todos com o novo valor recebido como argumento (todos).
     });
   }
 
+  // .getValue() -> é um método do BehaviorSubject. Ele retorna o valor atual do BehaviorSubject, ou seja, o último valor emitido pelo state$.
+  // É útil quando você precisa obter o valor atual do BehaviorSubject sem se inscrever nele como um observador.
+
   addTodo(todo: Todo) {
-    const state = this.state$.getValue();
-    this.state$.next({
-      ...state,
-      todos: [
+    const state = this.state$.getValue(); // pegando o valor atual do BehaviorSubject
+    this.state$.next({ // emitindo um novo valor para qualquer observador que esteja inscrito no fluxo de dados
+      ...state, // copiando o valor atual do BehaviorSubject com o operador spread
+      todos: [ // atualizando a propriedade todos com um novo array que contém todos os elementos do array anterior e o novo elemento
         ...state.todos,
         todo,
       ],
@@ -75,15 +84,15 @@ export class TodosStateService {
   }
 
   editTodo(todo: Todo) {
-    const state = this.state$.getValue();
-    this.state$.next({
+    const state = this.state$.getValue(); // pegando o valor atual do BehaviorSubject
+    this.state$.next({ // emitindo um novo valor para qualquer observador que esteja inscrito no fluxo de dados
       ...state,
-      todos: state.todos.map(t => {
+      todos: state.todos.map(t => { // o map está percorrendo o array de todos e checando se o id do todo é igual ao id do todo que está sendo editado
         // trocando o todo antigo pelo todo novo se id for igual
         if (t.id === todo.id) {
-          return todo;
+          return todo; // se o id for igual, retorna o todo novo passado no parametro
         }
-        return t;
+        return t; // se o id não for igual, retorna o todo antigo
       }),
     });
   }
@@ -92,7 +101,7 @@ export class TodosStateService {
     const state = this.state$.getValue();
     this.state$.next({
       ...state,
-      todos: state.todos.filter(todo => todo.id !== id),
+      todos: state.todos.filter(t => t.id !== id) // retorna um novo array com todos os elementos que não tem o id igual ao id passado no parametro
     });
   }
 
@@ -124,19 +133,20 @@ export class TodosStateService {
     });
   }
 
-  setTodoBeingSaved(todoId: string) {
+  setTodoBeingSaved(todoId: string) { // método para indicar que um todo está sendo salvo
     const state = this.state$.getValue();
     this.state$.next({
       ...state,
-      todosBeingSaved: {
+      todosBeingSaved: { // cria um novo abjeto literal
         ...state.todosBeingSaved,
         // adicionamos o id do Todo aqui como true para indicar que ele está sendo salvo
-        [todoId]: true,
+        [todoId]: true, // [todoId] -> é uma forma de adicionar uma propriedade com o nome dinâmico. Essa variável "todoId"
+                        // vai ser transformada em string e vai ser o nome da propriedade do objeto
       },
     });
   }
 
-  setTodoNotBeingSaved(todoId: string) {
+  setTodoNotBeingSaved(todoId: string) { // inverso do método anterior
     const state = this.state$.getValue();
     this.state$.next({
       ...state,

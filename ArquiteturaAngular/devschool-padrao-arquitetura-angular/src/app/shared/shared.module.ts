@@ -13,7 +13,7 @@ import { MatProgressSpinnerModule } from '@angular/material/progress-spinner';
 
 export const sharedComponents = []
 
-export const sharedModules = [
+export const sharedModules = [ // usamos o sharedModules como um array aqui somente para evitar repetição nas importações e exportações
   CommonModule,
   ReactiveFormsModule,
   FormsModule,
@@ -33,7 +33,7 @@ export const sharedModules = [
     ...sharedComponents,
   ],
   imports: [
-    ...sharedModules,
+    ...sharedModules, // não presisa repetir todas as importações (const sharedModules)
   ],
   exports: [
     ...sharedModules,

@@ -11,7 +11,10 @@ import { v4 } from 'uuid';
   templateUrl: './todos-page.component.html',
   styleUrls: ['./todos-page.component.scss']
 })
+
 export class TodosPageComponent implements OnInit, OnDestroy {
+
+  constructor(private todosFacade: TodosFacadeService) {}
 
   filteredTodos$ = this.todosFacade.orderedTodos$;
   loading$ = this.todosFacade.loading$;
@@ -26,25 +29,26 @@ export class TodosPageComponent implements OnInit, OnDestroy {
     validators: [Validators.required, Validators.minLength(3)]
   });
 
-  saving$ = this.todosFacade.saving$;
-  isSaving: boolean = false;
+  saving$ = this.todosFacade.saving$; // indicador de salvamento
+  isSaving: boolean = false; // o isSaving é utilizado várias vezes no template, então armazenamos ele em uma propriedade
+                             // primitiva para evitar que tenhamos que fazer subscribe repetidas vezes no template. (má prática)
 
   todosCount$ = this.todosFacade.todosCount$;
   todosCompletedCount$ = this.todosFacade.todosCompletedCount$;
 
-  destroy$ = new Subject<void>();
+  destroy$ = new Subject<void>(); // Subject é um tipo de Observable que permite que valores sejam emitidos para múltiplos subscribers,
+                                  // nesse caso pra notificar que o componente foi destruido e assim completar o observable e evitar vazamento de memória.
 
-  constructor(private todosFacade: TodosFacadeService) {}
 
   ngOnInit(): void {
     // Esse é um observable infinito, então usamos o takeUntil com destroy$ para que possamos completar
     // o observable quando esse componente for destruido para evitarmos vazamento de memória.
     this.saving$.pipe(
-      takeUntil(this.destroy$)
+      takeUntil(this.destroy$) // ngOnDestroy no final da classe
     )
     .subscribe({
       next: (isSaving) => {
-        // armazenamos o saving em uma propriedade primitiva para evitarmos 
+        // armazenamos o saving em uma propriedade primitiva para evitarmos
         // ter que fazer subscribe repetidas vezes no template.
         this.isSaving = isSaving
       }
@@ -112,7 +116,7 @@ export class TodosPageComponent implements OnInit, OnDestroy {
       });
   }
 
-  ngOnDestroy(): void {
+  ngOnDestroy(): void { // hook do angular pra quando o componente for destruido (saia da tela)
     // notificamos que o componente foi destruido
     this.destroy$.next();
     this.destroy$.complete();

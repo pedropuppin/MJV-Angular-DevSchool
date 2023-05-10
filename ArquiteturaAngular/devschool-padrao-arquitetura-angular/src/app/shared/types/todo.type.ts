@@ -8,3 +8,4 @@ export interface Todo {
 export interface TodoListItem extends Todo {
   isSaving: boolean;
 }
+

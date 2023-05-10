@@ -7,11 +7,15 @@ import { Todo, TodoListItem } from 'src/app/shared/types/todo.type';
   styleUrls: ['./todo-list.component.scss'],
   changeDetection: ChangeDetectionStrategy.OnPush
 })
+
+// É o componente responsável por renderizar a lista inteira de 'todos'
+
 export class TodoListComponent implements OnInit {
 
   @Input()
-  todos!: TodoListItem[];
+  todos!: TodoListItem[]; // recebe a lista de 'todos' do componente pai
 
+  // Outputs pra propagar os eventos dos botões de cada item dos 'todos' pro componente pai ('todos-page')
   @Output()
   todoToggle = new EventEmitter<Todo>();
 

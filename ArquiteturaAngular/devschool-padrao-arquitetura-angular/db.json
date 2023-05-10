@@ -4,13 +4,22 @@
       "id": "f4d00611-a751-4c57-8fde-1acc676b1d35",
       "title": "Aula arquitetura",
       "isCompleted": true,
-      "isFavorited": true
+      "isFavorited": false,
+      "isSaving": false
     },
     {
       "id": "38315f5c-4fcb-4461-9d1a-c2bae6d0e038",
       "title": "Aula RxJS",
-      "isCompleted": false,
-      "isFavorited": false
+      "isCompleted": true,
+      "isFavorited": false,
+      "isSaving": false
+    },
+    {
+      "id": "70114775-4f50-42e5-8708-8be12b853d38",
+      "title": "Terminar Aula X",
+      "isCompleted": true,
+      "isFavorited": true,
+      "isSaving": false
     }
   ]
 }
