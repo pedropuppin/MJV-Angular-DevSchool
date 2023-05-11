@@ -1,0 +1,23 @@
+<!-- diretivas são compostas por classes do TS -->
+<!-- Pipes são uma maneira elegante de realizarmos transformações de texto em nosso front-end. Só funcionam com  valores em STRING ou NUMBER
+Para fazer a configuração dos pipes para o padrão BR precisamos importar algumas coisas no app.module.ts, com as configs feitas o padrão agora é o BR.
+Outros tipos de pipes em -> https://angular.io/guide/pipes -->
+
+
+<h3>Data de hoje: {{dataHoje | date: 	'medium'}}</h3>
+<button mat-flat-button color="primary" (click)="toggleColab()">Ocultar colaboradores</button>
+<hr>
+<div class="container" *ngIf="showColab">
+  <div class="card" *ngFor="let colaborator of colaborators">
+    <div class="card-description">
+      <h3>Nome: {{colaborator.name}}</h3>
+      <h4>Cargo: {{colaborator.ocupation}}</h4>
+      <button class="actions details" (click)="detailsColab(colaborator.id)">Ver mais</button>
+      <button class="actions details" (click)="alterarColab(colaborator.id)">Atualizar</button>
+      <button class="actions details" (click)="removeColab(colaborator.id)">Remover</button>
+    </div>
+  </div>
+</div>
+<hr>
+<!-- Botão criado usando o angular material importação feita no "listing.module.ts" -->
+<button mat-flat-button color="primary" (click)="navigateByUrl('create-colaborator')">Adicionar colaborador</button>
