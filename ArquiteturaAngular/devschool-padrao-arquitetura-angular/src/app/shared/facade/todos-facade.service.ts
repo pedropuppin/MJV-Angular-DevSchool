@@ -1,9 +1,9 @@
 import { Injectable } from '@angular/core';
-import { Observable, of, combineLatest } from 'rxjs';
-import { catchError, distinctUntilChanged, filter, finalize, map, retry, shareReplay, switchMap, take, tap, withLatestFrom } from 'rxjs/operators';
+import { Observable, of, combineLatest, merge } from 'rxjs';
+import { catchError, distinctUntilChanged, filter, finalize, map, mergeMap, retry, shareReplay, startWith, switchMap, take, tap, withLatestFrom } from 'rxjs/operators';
 import { TodosApiService } from '../core/async/todos-api.service';
 import { TodoFilters, TodosStateService } from '../core/state/todos-state.service';
-import { Todo, TodoListItem } from '../types/todo.type';
+import { Todo, TodoListItem, TodoState } from '../types/todo.type';
 
 @Injectable({
   providedIn: 'root'
@@ -195,7 +195,7 @@ export class TodosFacadeService {
   }
 
   editTodo(todo: Todo): Observable<Todo> {
-    // Descomente para simular uma resposta "otimista"
+    // Descomente para simular uma resposta "otimista" mostra o todo sendo editado antes de receber a resposta do backend
     // this.todosState.editTodo(todo);
     this.todosState.setTodoBeingSaved(todo.id) // possibilita indicar que o todo está sendo salvo
     return this.todosApi.editTodo(todo) // chama o editTodo do service 'todosApi'
@@ -211,6 +211,7 @@ export class TodosFacadeService {
 
 
   deleteTodo(todo: Todo) {
+    // resposta "otimista"
     // this.todosState.removeTodo(todo.id);
     this.todosState.setTodoBeingSaved(todo.id)
     return this.todosApi.deleteTodo(todo)
@@ -230,6 +231,47 @@ export class TodosFacadeService {
    */
   updateTodosFilters(filters: TodoFilters) {
     this.todosState.setFilters(filters);
+  }
+
+  getTodoById(todoId: string): Observable<TodoState> {
+    return this.allTodos$
+      .pipe(
+        take(1),
+        mergeMap((todos) => {
+          const loadedTodo = todos.find(todo => todo.id === todoId); // verifica se o todo já está carregado
+          if (loadedTodo) { // se já estiver carregado, retorna o state do todo
+            const state: TodoState = {
+              loading: false,
+              todo: loadedTodo,
+            }
+            return of(state);
+          }
+          return this.todosApi.getTodo(todoId) // caso não esteja carregado, chama o getTodo do service 'todosApi'
+          .pipe( // vamos ter que transformar a resposta
+            tap(response => {
+              this.todosState.addTodo(response); // recebeu a resposta e adiciona o todo no estado
+            }),
+            map(response => { // transforma a resposta em um TodoState
+              const state: TodoState = {
+                loading: false,
+                todo: response,
+              }
+              return state;
+            }),
+            startWith(<TodoState>{ // starta um estado inicial indicando que ele está carregando e que o todo é nulo
+              loading: true,
+              todo: null
+            }),
+            catchError((error) => { // caso ocorra um erro, retorna um estado com o todo nulo
+              const state: TodoState = {
+                loading: false,
+                todo: null,
+              }
+              return of(state);
+            })
+          )
+        })
+      )
   }
 }
 

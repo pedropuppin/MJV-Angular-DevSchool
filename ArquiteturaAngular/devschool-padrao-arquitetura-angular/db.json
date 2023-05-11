@@ -3,6 +3,7 @@
     {
       "id": "f4d00611-a751-4c57-8fde-1acc676b1d35",
       "title": "Aula arquitetura",
+      "description": "",
       "isCompleted": true,
       "isFavorited": false,
       "isSaving": false
@@ -10,14 +11,24 @@
     {
       "id": "38315f5c-4fcb-4461-9d1a-c2bae6d0e038",
       "title": "Aula RxJS",
+      "description": "",
       "isCompleted": true,
-      "isFavorited": false,
+      "isFavorited": true,
       "isSaving": false
     },
     {
       "id": "70114775-4f50-42e5-8708-8be12b853d38",
       "title": "Terminar Aula X",
-      "isCompleted": true,
+      "description": "",
+      "isCompleted": false,
+      "isFavorited": false,
+      "isSaving": false
+    },
+    {
+      "id": "020d18a7-39d2-48f6-ba33-f53a2f83e615",
+      "title": "Tarefa teste",
+      "description": "Tarefa feita pra testar o teste bem testado",
+      "isCompleted": false,
       "isFavorited": true,
       "isSaving": false
     }

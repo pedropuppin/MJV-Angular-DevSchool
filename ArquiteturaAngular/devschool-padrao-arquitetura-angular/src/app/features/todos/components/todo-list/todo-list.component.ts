@@ -8,7 +8,7 @@ import { Todo, TodoListItem } from 'src/app/shared/types/todo.type';
   changeDetection: ChangeDetectionStrategy.OnPush
 })
 
-// É o componente responsável por renderizar a lista inteira de 'todos'
+// É o componente responsável por renderizar a LISTA inteira de 'todos'
 
 export class TodoListComponent implements OnInit {
 
@@ -16,6 +16,7 @@ export class TodoListComponent implements OnInit {
   todos!: TodoListItem[]; // recebe a lista de 'todos' do componente pai
 
   // Outputs pra propagar os eventos dos botões de cada item dos 'todos' pro componente pai ('todos-page')
+  // esse outputs emitem qual 'todo' foi clicado e em qual botão foi clicado
   @Output()
   todoToggle = new EventEmitter<Todo>();
 
@@ -24,6 +25,9 @@ export class TodoListComponent implements OnInit {
 
   @Output()
   todoDelete = new EventEmitter<Todo>();
+
+  @Output()
+  todoSelected = new EventEmitter<Todo>();
 
   constructor() { }
 
@@ -40,6 +44,10 @@ export class TodoListComponent implements OnInit {
 
   onTodoDeleted(todo: Todo) {
     this.todoDelete.emit(todo);
+  }
+
+  onTodoSelected(todo: Todo) {
+    this.todoSelected.emit(todo);
   }
 
 }

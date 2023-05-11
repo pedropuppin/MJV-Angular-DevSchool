@@ -24,7 +24,7 @@ export interface TodosState {
 
 export class TodosStateService {
 
-  /**
+  /*
    Estado principal representado por um BehaviorSubject, que tem o conceito de "valor atual"
 
    BehaviorSubject --> é um tipo de Observable do RxJS que armazena o valor atual e o emite para seus assinantes sempre
@@ -33,7 +33,6 @@ export class TodosStateService {
    Quando você cria um BehaviorSubject, você deve inicializá-lo com um valor padrão. Esse valor será o valor inicial
    emitido para todos os novos assinantes. Em seguida, você pode atualizar o valor do BehaviorSubject usando o método next().
    Todas as novas assinaturas recebem o valor mais recente do BehaviorSubject, mesmo que seja alterado após a assinatura.
-
   */
   private state$ = new BehaviorSubject<TodosState>({ // inicializando o BehaviorSubject com o valor inicial do estado da aplicação
     loaded: false,

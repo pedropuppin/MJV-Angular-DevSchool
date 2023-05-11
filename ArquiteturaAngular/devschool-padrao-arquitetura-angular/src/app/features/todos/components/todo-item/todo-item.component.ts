@@ -8,9 +8,11 @@ import { Todo, TodoListItem } from 'src/app/shared/types/todo.type';
   changeDetection: ChangeDetectionStrategy.OnPush
 })
 
-// É um componente puro responsável por renderizar cada item dos 'todos'
+// É um componente puro responsável por renderizar CADA ITEM dos 'todos'
 
 export class TodoItemComponent {
+
+  showDetails = false;
 
   @Input()
   todo!: TodoListItem; // recebe um 'todo' do componente pai
@@ -25,6 +27,9 @@ export class TodoItemComponent {
   @Output()
   delete = new EventEmitter<Todo>();
 
+  @Output()
+  selected = new EventEmitter<Todo>();
+
   onToggleClicked() {
     this.toggleStatus.emit(this.todo);
   }
@@ -37,4 +42,7 @@ export class TodoItemComponent {
     this.delete.emit(this.todo);
   }
 
+  onSelected() {
+    this.selected.emit(this.todo);
+  }
 }

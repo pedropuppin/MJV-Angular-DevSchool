@@ -15,12 +15,15 @@ export class TodosApiService {
 
   constructor(private http: HttpClient) { }
 
-  // CRUD
   getTodos(): Observable<Todo[]> { // método get que retorna um Observable de um array de Todo
     return this.http.get<Todo[]>(this.apiPath);
   }
 
-  createTodo(todo: Todo) { 
+  getTodo(todoId: string): Observable<Todo> {
+    return this.http.get<Todo>(`${this.apiPath}/${todoId}`);
+  }
+
+  createTodo(todo: Todo) {
     return this.http.post<Todo>(this.apiPath, todo);
   }
 

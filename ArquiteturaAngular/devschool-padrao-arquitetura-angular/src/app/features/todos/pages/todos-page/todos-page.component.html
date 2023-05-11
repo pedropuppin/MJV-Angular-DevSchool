@@ -1,49 +1,59 @@
 <h1>Lista de Tarefas</h1>
 
+<!-- Formulário para agrupar a parte dos filtros -->
 <div>Filtros:</div>
 <form [formGroup]="filterForm">
   <mat-form-field appearance="fill">
     <mat-label>Título</mat-label>
-    <input matInput
-           formControlName="title" />
+    <input matInput formControlName="title" />
   </mat-form-field>
 
-  <mat-radio-group aria-label="Select an option"
-                   formControlName="isCompleted">
-    <mat-radio-button [value]="null"
-                      class="todos-filter-radio-item">Todos</mat-radio-button>
-    <mat-radio-button [value]="false"
-                      class="todos-filter-radio-item">Pendentes</mat-radio-button>
-    <mat-radio-button [value]="true"
-                      class="todos-filter-radio-item">Completados</mat-radio-button>
+  <mat-radio-group aria-label="Select an option" formControlName="isCompleted">
+    <mat-radio-button [value]="null" class="todos-filter-radio-item">Todos</mat-radio-button>
+    <mat-radio-button [value]="false" class="todos-filter-radio-item">Pendentes</mat-radio-button>
+    <mat-radio-button [value]="true" class="todos-filter-radio-item">Completados</mat-radio-button>
   </mat-radio-group>
 </form>
 
+<!-- Formulário para agrupar a parte de criação de tarefas -->
 <div class="new-todo-form">
-  <mat-form-field appearance="fill">
-    <mat-label>Nova Tarefa</mat-label>
-    <input matInput
-           [formControl]="newTodoControl" />
-  </mat-form-field>
-  <button mat-raised-button
-          color="primary"
-          [disabled]="isSaving || newTodoControl.invalid"
-          (click)="createTodo()">
-    {{ isSaving ? 'Salvando...' : 'Criar' }}
-  </button>
-  <mat-spinner *ngIf="isSaving"
-               diameter="24"
-               color="accent"></mat-spinner>
+  <form [formGroup]="newTodoForm">
+
+    <mat-form-field appearance="fill">
+      <mat-label>Nova Tarefa</mat-label>
+      <input matInput formControlName="title" />
+    </mat-form-field>
+
+    <mat-form-field>
+      <mat-label>Descrição</mat-label>
+      <textarea matInput formControlName="description"></textarea>
+    </mat-form-field>
+
+    <button mat-raised-button
+            color="primary"
+            [disabled]="isSaving || newTodoForm.invalid"
+            (click)="createTodo()">
+      {{ isSaving ? 'Salvando...' : 'Criar' }}
+    </button>
+    <mat-spinner *ngIf="isSaving"
+                  diameter="24"
+                  color="accent">
+    </mat-spinner>
+  </form>
 </div>
 
-
+<!-- Parte responsável pela lista de "todos" -->
+<!-- a pipe "async" faz o subscribe automático no observable e ela também já se encarrega de fazer o unsubscribe -->
 <mat-spinner *ngIf="loading$ | async"
              diameter="24"
-             color="primary"></mat-spinner>
+             color="primary">
+</mat-spinner>
+<!-- o "$event" contém o valor do evento emitido, nesse caso é `[todos]="todo"` -->
 <div>
   {{ todosCompletedCount$ | async }}/{{ todosCount$ | async }}
   <ng-container *ngIf="filteredTodos$ | async as todos;">
     <app-todo-list [todos]="todos"
+                   (todoSelected)="onSelectedTodoChanged($event)"
                    (todoDelete)="onTodoDeleted($event)"
                    (todoToggle)="onTodoToggled($event)"
                    (todoToggleFavorite)="onTodoToggledFavorite($event)"></app-todo-list>

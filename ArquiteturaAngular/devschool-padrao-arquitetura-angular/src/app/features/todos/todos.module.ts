@@ -6,17 +6,20 @@ import { TodosPageComponent } from './pages/todos-page/todos-page.component';
 import { SharedModule } from 'src/app/shared/shared.module';
 import { TodoListComponent } from './components/todo-list/todo-list.component';
 import { TodoItemComponent } from './components/todo-item/todo-item.component';
+import { TodosDetailsComponent } from './pages/todos-details/todos-details.component';
+
 
 
 @NgModule({
   declarations: [
     TodosPageComponent,
     TodoListComponent,
-    TodoItemComponent
+    TodoItemComponent,
+    TodosDetailsComponent
   ],
   imports: [
     SharedModule,
-    TodosRoutingModule
+    TodosRoutingModule,
   ],
 })
 export class TodosModule { }
