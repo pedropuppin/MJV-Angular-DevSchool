@@ -12,3 +12,4 @@
 6) Setima semana -> Template-driven (users / login / ngModel) e RxJs
 7) Oitava semana -> Reactive-forms e Angular Components
 8) Nona semana -> Angular material e Arquitetura Angular
+9) Décima semana -> HttpModule / http requests
