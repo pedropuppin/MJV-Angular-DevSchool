@@ -19,7 +19,10 @@ export class AuthGuardGuard implements CanActivate {
 }
 
 
-// gerado com "ng g guard shared/guards/auth-guard --implements CanActivate" ele faz com que seja criado com a função
-// canActivate
+// gerado com "ng g guard shared/guards/auth-guard --implements CanActivate" ele faz com que
+// seja criado com a função canActivate
 
 // o papel do guard é permitir ou não o acesso a uma rota
+
+// essa forma de autenticação está depreciada. A forma atual é criar diretamente uma funão,
+// que vai ser chamada dentro do canActivate na rota que queremos proteger
