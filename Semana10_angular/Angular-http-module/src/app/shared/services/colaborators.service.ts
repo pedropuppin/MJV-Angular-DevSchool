@@ -55,7 +55,6 @@ export class ColaboratorsService {
   generateNextId() {
     return this.colaborators[(this.colaborators.length - 1)].id + 1;
   }
-
 }
 
 
